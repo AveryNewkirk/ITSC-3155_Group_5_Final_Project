@@ -1,4 +1,3 @@
-from crypt import methods
 from flask import Blueprint, render_template, request, redirect, url_for
 
 sell = Blueprint('sell', __name__)
