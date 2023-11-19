@@ -8,10 +8,10 @@
 -->
 
 <div class="listing-card">
-    <div class="listing-image">
-        <img src="{{ image_url }}" alt="{{ title }}">
+    <div class="listing-card-image-container">
+        <img class="listing-card-image" src="{{ image_url }}" alt="{{ title }}">
     </div>
-    <div class="listing-title">{{ title }}</div>
-    <div class="listing-price">${{ price }}</div>
-    <div class="listing-description">{{ description }}</div>
+    <div class="listing-card-title">{{ title }}</div>
+    <div class="listing-card-price">${{ price }}</div>
+    <div class="listing-card-description">{{ description }}</div>
 </div>

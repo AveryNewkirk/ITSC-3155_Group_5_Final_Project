@@ -223,33 +223,36 @@ body {
     border-radius: var(--radius-md);
     background-color: var(--background-gray-dark);
     margin: var(--margin-md);
-    padding: var(--margin-sm);
+    padding: var(--padding-mdlg);
 }
 
-.listing-image {
+.listing-card-image-container {
     height: 240px;
     width: 240px;
     background-color: var(--secondary-color-dark);
     border-radius: var(--radius-md);
     margin-bottom: var(--margin-sm);
-
-    /* Scrap code for testing */
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    color: var(--text-light);
+    overflow: hidden;
 }
 
-.listing-title {
+.listing-card-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    border-radius: var(--radius-md);
+}
+
+.listing-card-title {
     font-weight: bold;
-    font-size: 1.2rem;
+    font-size: var(--font-mdlg);
 }
 
-.listing-price {
+.listing-card-price {
     font-weight: bold;
-    font-size: 1.1rem;
+    font-size: var(--font-mdlg);
 }
 
-.listing-description {
+.listing-card-description {
     margin-top: var(--margin-xs);
 }
