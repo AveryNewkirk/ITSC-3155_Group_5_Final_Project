@@ -30,6 +30,7 @@ document.addEventListener('DOMContentLoaded', function () {
     // Get the file input and the image preview container
     const fileInput = document.getElementById('upload-pictures');
     const imagePreviewContainer = document.getElementById('image-preview-container');
+    const listingPreviewImage = document.getElementById('listing-image-preview-img');
 
     fileInput.addEventListener('change', function (event) {
         // Clear out the previous images
@@ -37,6 +38,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
         // Get the files from the input
         const files = event.target.files;
+        let firstImageRendered = false;
 
         // Loop through the FileList and render image files as thumbnails.
         for (let i = 0; i < files.length; i++) {
@@ -56,6 +58,13 @@ document.addEventListener('DOMContentLoaded', function () {
                     const span = document.createElement('span');
                     span.innerHTML = `<img class="thumb" src="${e.target.result}" title="${escape(theFile.name)}"/>`;
                     imagePreviewContainer.insertBefore(span, null);
+
+                    // If it's the first image and it hasn't been rendered in the preview yet
+                    if (!firstImageRendered) {
+                        listingPreviewImage.src = e.target.result; // Set the first image as the preview
+                        listingPreviewImage.classList.toggle('hide');
+                        firstImageRendered = true;
+                    }
                 };
             })(file);
 
