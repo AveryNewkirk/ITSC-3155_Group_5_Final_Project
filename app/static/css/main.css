@@ -4,7 +4,7 @@
     --primary-color: #C8553D;
     --secondary-color-light: #588B8B;
     --secondary-color-dark: #297373;
-    --text-dark: #1a1a1a;
+    --text-dark: #1A1A1A;
     --text-light: #E6E6E6;
     --background-white: #F9F9F9;
     --background-gray-light: #E6E6E6;
@@ -91,6 +91,7 @@ body {
         "sidebar main"
         "footer footer";
     font-family: 'Lexend', sans-serif;
+    font-family: "Signika Negative", sans-serif;
     color: var(--text-dark);
 }
 
@@ -182,6 +183,7 @@ body {
 .main-wrapper {
     grid-area: main;
     padding: var(--padding-lg);
+    overflow: hidden;
 }
 
 /* Fill horizontal space when sidebar is collapsed */
