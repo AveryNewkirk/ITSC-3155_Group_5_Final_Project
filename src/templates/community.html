@@ -1,0 +1,38 @@
+{% extends "template.html" %}
+
+{% block head %}
+
+<script src="https://cdn.jsdelivr.net/npm/masonry-layout@4.2.2/dist/masonry.pkgd.min.js" integrity="sha384-GNFwBvfVxBkLMJpYMOABq3c+d3KnQxudP/mGPkzpZSTYykLBNsZEnG2D9G/X/+7D" crossorigin="anonymous" async></script>
+
+<!-- above is the masonry cdn for bootstrap, it will make the community page look like an instagram explore page and also responsive-->
+<link rel="stylesheet" href="/static/css/community.css">
+{% endblock %}
+{% block content %}
+
+<!--TODO implement user sessions so content can be dynamiclly generated when they scroll at the bottom of the page
+and limit the amount of posts so that get requests don't get to be too much
+The main issue is that -->
+<h2>
+    Container
+</h2>
+
+<hr class = "border border-muted border-1 opacity-75">
+<div class="span">
+    <div class="custom-container">
+        <div class ="row" data-masonry='{"percentPositon" : true}'>
+            <div class ="card-columns" id = "post-container">
+                   <!-- this is where the html will be generated-->
+
+            </div>
+        </div>
+    </div>
+</div>
+    
+    
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+
+<script src ="static/scripts/infScroll.js"></script>
+    
+
+
+{% endblock %}

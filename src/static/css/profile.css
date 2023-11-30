@@ -1,0 +1,116 @@
+/* VARIABLES */
+:root {
+    /* Colors */
+    --primary-color: #C8553D;
+    --secondary-color-light: #588B8B;
+    --secondary-color-dark: #297373;
+    --text-dark: #1A1A1A;
+    --text-light: #E6E6E6;
+    --background-white: #F9F9F9;
+    --background-gray-light: #E6E6E6;
+    --background-gray-dark: #D9D9D9;
+    --button-Tangerine: #F28F3B;
+    --button-Jet: #39393A;
+
+    /* Measurements */
+    /* Font Size */
+    --font-sm: 0.75rem;
+    --font-mdsm: 0.9rem;
+    --font-mdlg: 1.2rem;
+    --fontlg: 1.5rem;
+    --fontxl: 2rem;
+    /* Radius */
+    --radius-sm: 8px;
+    --radius-md: 12px;
+    --radius-lg: 16px;
+    /* Margin */
+    --margin-xs: 6px;
+    --margin-sm: 12px;
+    --margin-mdsm: 18px;
+    --margin-md: 24px;
+    --margin-mdlg: 30px;
+    --margin-lg: 36px;
+    --margin-xl: 48px;
+    /* Padding */
+    --padding-xs: 2px;
+    --padding-sm: 4px;
+    --padding-mdsm: 6px;
+    --padding-md: 8px;
+    --padding-mdlg: 12px;
+    --padding-lg: 16px;
+    --padding-xl: 24px;
+}
+
+/* PROFILE PAGE */
+
+.profile-layout {
+    display: flex;
+    text-align: center;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: var(--margin-md);
+    margin-right: var(--margin-md);
+}
+
+.profile-info {
+    height: 85vh;
+    width: 23vw;
+    padding: 20px;
+    border-radius: 12px;
+    background-color: var(--background-gray-light);
+}
+
+.profile-image {
+    background-color: var(--background-gray-dark);
+    height: 120px;
+    width: 120px;
+    /*Adjust values when implementing dynamic html*/
+    border-radius: 50%;
+    padding: 8px;
+}
+
+.profile-bio {
+    text-align: left;
+}
+
+.profile-bio-desc {
+    display: flex;
+    justify-content: center;
+    height: 30vh;
+    padding-top: 10px;
+    background-color: white;
+    border-radius: 12px;
+}
+
+.profile-bio-desc p {
+    text-align: left;
+}
+
+.edit-profile-button {
+    padding: 10px;
+    background-color: #C8553D;
+    /* Updated background color */
+    color: #fff;
+    /* White text color */
+    border: none;
+    border-radius: 12px;
+    /* Rounded edges */
+    cursor: pointer;
+}
+
+.edit-profile-button:hover {
+    background-color: #A54A33;
+    /* Updated background color on hover */
+}
+
+.profile-listings {
+    height: 85vh;
+    width: 50vw;
+    padding: 20px;
+    border-radius: 12px;
+    color: white;
+    text-align: center;
+    border-radius: 12px;
+    background-color: var(--secondary-color-dark);
+    /* margin-left: 5vw; */
+}

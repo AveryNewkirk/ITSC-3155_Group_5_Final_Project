@@ -1,0 +1,206 @@
+/* VARIABLES */
+:root {
+    /* Colors */
+    --primary-color: #C8553D;
+    --secondary-color-light: #588B8B;
+    --secondary-color-dark: #297373;
+    --text-dark: #1A1A1A;
+    --text-light: #E6E6E6;
+    --background-white: #F9F9F9;
+    --background-gray-light: #E6E6E6;
+    --background-gray-dark: #D9D9D9;
+    --button-Tangerine: #F28F3B;
+    --button-Jet: #39393A;
+
+    /* Measurements */
+    /* Font Size */
+    --font-sm: 0.75rem;
+    --font-mdsm: 0.9rem;
+    --font-mdlg: 1.2rem;
+    --fontlg: 1.5rem;
+    --fontxl: 2rem;
+    /* Radius */
+    --radius-sm: 8px;
+    --radius-md: 12px;
+    --radius-lg: 16px;
+    /* Margin */
+    --margin-xs: 6px;
+    --margin-sm: 12px;
+    --margin-mdsm: 18px;
+    --margin-md: 24px;
+    --margin-mdlg: 30px;
+    --margin-lg: 36px;
+    --margin-xl: 48px;
+    /* Padding */
+    --padding-xs: 2px;
+    --padding-sm: 4px;
+    --padding-mdsm: 6px;
+    --padding-md: 8px;
+    --padding-mdlg: 12px;
+    --padding-lg: 16px;
+    --padding-xl: 24px;
+}
+
+/* Sell container */
+.sell-container {
+    display: flex;
+    background-color: var(--background-gray-light);
+    border-radius: var(--radius-md);
+    padding: var(--padding-xl);
+    margin: var(--margin-md);
+}
+
+/* Sell form container */
+.sell-form-container {
+    height: 100%;
+    width: 100%;
+    display: flex;
+}
+
+/* Sell form */
+#sell-form {
+    width: 100%;
+}
+
+.sell-form-container label,
+.sell-form-container input,
+.sell-form-container textarea,
+.sell-form-container button {
+    display: block;
+}
+
+.sell-form-container label {
+    font-size: var(--font-mdlg);
+}
+
+#upload-pictures-container {
+    display: flex;
+    flex-direction: row;
+}
+
+#upload-pictures {
+    display: none;
+}
+
+#upload-pictures-styled {
+    width: 100px;
+    height: 100px;
+    background-color: var(--background-white);
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+    text-align: center;
+    line-height: 100px;
+    font-size: 5rem;
+    color: var(--background-gray-dark);
+}
+
+#image-preview-container {
+    display: flex;
+    flex-direction: row;
+}
+
+.thumb {
+    height: 100px;
+    border: 3px solid var(--secondary-color-light);
+    border-radius: var(--radius-sm);
+    margin: 0 var(--margin-sm);
+}
+
+#listing-title,
+#item-description,
+#price {
+    width: 100%;
+    max-width: 800px;
+    border: none;
+    border-radius: var(--radius-md);
+    padding: var(--padding-sm) var(--padding-md);
+}
+
+#item-description {
+    height: 100px;
+    margin-bottom: var(--margin-sm);
+}
+
+#listing-title,
+#upload-pictures-container,
+#generate-description,
+.generated-images,
+#price {
+    margin-bottom: var(--margin-md);
+}
+
+.generated-images {
+    display: flex;
+    gap: var(--margin-sm);
+}
+
+.image-placeholder {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100px;
+    height: 100px;
+    background-color: var(--background-white);
+    border-radius: var(--radius-sm);
+    color: var(--background-gray-dark);
+    font-size: 3rem;
+}
+
+/* Preview container */
+.sell-preview-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.listing-card {
+    display: flex;
+    flex-direction: column;
+    width: 472px;
+    border-radius: var(--radius-md);
+    background-color: var(--background-gray-dark);
+    margin: 0 var(--margin-md);
+    padding: var(--padding-lg);
+}
+
+.listing-image-preview {
+    height: 440px;
+    width: 440px;
+    background-color: var(--secondary-color-dark);
+    border-radius: var(--radius-md);
+    margin-bottom: var(--margin-sm);
+    overflow: hidden;
+}
+
+#listing-image-preview-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    border-radius: var(--radius-md);
+}
+
+#listing-image-preview-img.hide {
+    display: none;
+}
+
+.listing-title-preview {
+    font-weight: bold;
+    font-size: var(--font-mdlg);
+}
+
+.listing-price-preview {
+    font-weight: bold;
+    font-size: var(--font-mdlg);
+}
+
+.listing-description-preview {
+    margin-top: var(--margin-xs);
+}
+
+#preview-header {
+    margin-top: var(--margin-md);
+    border-radius: var(--radius-md);
+    background-color: var(--background-gray-dark);
+    padding: var(--padding-sm) var(--padding-md);
+}
