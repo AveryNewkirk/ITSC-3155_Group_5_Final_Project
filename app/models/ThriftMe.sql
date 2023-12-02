@@ -1,5 +1,4 @@
 create database ThriftMe;
-
 -- Store User information
 -- Most important table
 CREATE TABLE users (
@@ -16,7 +15,7 @@ CREATE TABLE users (
 CREATE TABLE albums (
     album_id SERIAL PRIMARY KEY,
     user_id INT,
-    album_name VARCHAR(100) NOT NULL,
+    album_name VARCHAR(100),
     FOREIGN KEY (user_id) REFERENCES users(user_id) ON DELETE CASCADE
 );
 
@@ -46,11 +45,13 @@ CREATE TABLE posts (
 -- Store albums for posts and price information
 CREATE TABLE listings (
     listing_id SERIAL PRIMARY KEY,
-    user_id INT,
-    listing_name VARCHAR(100) NOT NULL,
-    caption TEXT,
-    price DECIMAL(10, 2),
-    FOREIGN KEY (user_id) REFERENCES users(user_id) ON DELETE CASCADE
+    user_id INT NOT NULL,
+    album_id INT NOT NULL,
+    title VARCHAR(100) NOT NULL,
+    description TEXT NOT NULL,
+    price DECIMAL(10, 2) NOT NULL,
+    FOREIGN KEY (user_id) REFERENCES users(user_id) ON DELETE CASCADE,
+    FOREIGN KEY (album_id) REFERENCES albums(album_id) ON DELETE SET NULL
 );
 
 -- Represents community posts that can reference albums and a reference to listings if needed
@@ -264,10 +265,9 @@ ORDER BY
     posts.post_date DESC;
 
 
---test if cascade works -> it works
---dangerous query
-DELETE from users; --delete all users and their associated tables
-ALTER SEQUENCE users_user_id_seq RESTART WITH 1; -- reset the sequence
-
-select * from users; -- check if the data is cleared
-
+-- --test if cascade works -> it works
+-- --dangerous query
+-- DELETE from users; --delete all users and their associated tables
+-- ALTER SEQUENCE users_user_id_seq RESTART WITH 1; -- reset the sequence
+--
+-- select * from users; -- check if the data is cleared

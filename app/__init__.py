@@ -1,5 +1,5 @@
 from flask import Flask
-import os 
+import os, base64
 from dotenv import load_dotenv
 from .database import db
 from sqlalchemy import text
@@ -21,7 +21,6 @@ def create_app():
 
     app.config['SESSION_COOKIE_PATH'] = '/'
 
-
     db.init_app(app)
 
     #Validate database connection
@@ -32,7 +31,8 @@ def create_app():
         except Exception as e:
             print(f"\nConnection failed. ERROR:{e}")
 
-
+    # Jinja filter for encoding bytes into base64, readable in the src attribute of an img tag
+    app.jinja_env.filters['b64encode'] = b64encode_filter
 
     # from .routes import route_1, route_2, ...
     from .routes import (
@@ -60,3 +60,6 @@ def create_app():
     app.register_blueprint(marketplace_routes.marketplace)
 
     return app
+
+def b64encode_filter(data):
+    return base64.b64encode(data).decode('ascii') if data else ''
