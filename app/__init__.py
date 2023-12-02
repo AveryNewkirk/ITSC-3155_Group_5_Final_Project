@@ -3,6 +3,7 @@ import os, base64
 from dotenv import load_dotenv
 from .database import db
 from sqlalchemy import text
+from flask_bcrypt import Bcrypt
 
 
 
@@ -22,7 +23,8 @@ def create_app():
     app.config['SESSION_COOKIE_PATH'] = '/'
 
     db.init_app(app)
-
+    bcrypt = Bcrypt()
+    bcrypt.init_app(app)
     #Validate database connection
     with app.app_context():
         try:
@@ -45,7 +47,8 @@ def create_app():
         community_routes,
         contact_routes,
         user_routes,
-        marketplace_routes
+        marketplace_routes,
+        signup
     )
     
     app.register_blueprint(index_routes.index)
@@ -58,6 +61,7 @@ def create_app():
     app.register_blueprint(contact_routes.contact)
     app.register_blueprint(user_routes.user)
     app.register_blueprint(marketplace_routes.marketplace)
+    app.register_blueprint(signup.signup)
 
     return app
 
