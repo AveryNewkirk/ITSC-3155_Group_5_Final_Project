@@ -12,7 +12,7 @@ def create_listing():
     #     return(redirect(url_for('login_routes.login')))
     
     # Create user for testing purposes
-    user = Users('test@test.com', 'abc')
+    user = Users('testuser', 'testemail', 'testpass')
     db.session.add(user)
     db.session.commit()
     
