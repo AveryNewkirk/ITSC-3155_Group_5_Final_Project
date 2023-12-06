@@ -27,7 +27,7 @@ def create():
     if not password or not email:
         abort(400)
     hashed_password = bcrypt.generate_password_hash(password, 12).decode()
-    new_user = Users(email,hashed_passwordcd )
+    new_user = Users(email,hashed_password )
     db.session.add(new_user)
     db.session.commit()
     return redirect('/home')
