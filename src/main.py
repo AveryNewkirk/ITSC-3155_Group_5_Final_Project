@@ -3,8 +3,10 @@ import os
 from dotenv import load_dotenv
 from .database import db
 from sqlalchemy import text
+from src.bcrypt_setup import init_bcrypt
 from flask_bcrypt import Bcrypt
 
+bcrypt = Bcrypt();
 
 
 def create_app():
@@ -12,7 +14,7 @@ def create_app():
     
     load_dotenv()
 
-    app.secret_key = os.getenv('APP_SECRET_KEY', 'apple')
+    #app.secret_key = os.getenv('APP_SECRET_KEY', 'apple')
 
     #database connection
     app.config["SQLALCHEMY_DATABASE_URI"] = \
@@ -22,10 +24,13 @@ def create_app():
 
     app.config['SESSION_COOKIE_PATH'] = '/'
 
-
+    # app.secret_key = os.getenv('APP_SECRET_KEY', 'potato')
+    # bcrypt = Bcrypt()
+    # bcrypt.init_app(app)
+    
     db.init_app(app)
-    bcrypt = Bcrypt()
-    bcrypt.init_app(app)
+    bcrpyt = init_bcrypt(app)
+    
     #Validate database connection
     with app.app_context():
         try:

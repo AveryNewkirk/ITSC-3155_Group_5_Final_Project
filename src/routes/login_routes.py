@@ -37,7 +37,7 @@ def authUser():
 def get_user_page():
     if 'user' not in session:
         abort(401)
-    return render_template('profile.html')
+    return render_template('profile.html', username = session['user'].get('username'))
 
 
 @login.post('/logout')
