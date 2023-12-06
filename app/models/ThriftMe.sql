@@ -22,10 +22,13 @@ CREATE TABLE albums (
 
 -- Table to store photos
 --Albums will rely on this table
+-- Run the following commands to fix your local DB:
+-- ALTER TABLE photos DROP COLUMN photo_data DROP COLUMN photo_mimetype;
+-- ALTER TABLE photos ADD COLUMN photo_url TEXT;
 CREATE TABLE photos (
     photo_id SERIAL PRIMARY KEY,
     album_id INT,
-    photo_data BYTEA,
+    photo_url TEXT,
     FOREIGN KEY (album_id) REFERENCES albums(album_id) ON DELETE CASCADE
 );
 

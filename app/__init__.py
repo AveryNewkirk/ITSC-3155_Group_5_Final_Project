@@ -4,11 +4,15 @@ from dotenv import load_dotenv
 from .database import *
 from sqlalchemy import text
 from flask_bcrypt import Bcrypt
-
-
+from flask_uploads import configure_uploads
+from .config import photos
 
 def create_app():
     app = Flask(__name__)
+    
+    # File upload configuration
+    app.config['UPLOADED_PHOTOS_DEST'] = 'app/static/user_images'
+    configure_uploads(app, photos)
     
     load_dotenv()
 
@@ -30,9 +34,6 @@ def create_app():
             print(f'\n\tSuccessful connection to {os.getenv("DB_USERNAME")}\n')
         except Exception as e:
             print(f"\nConnection failed. ERROR:{e}")
-
-    # Jinja filter for encoding bytes into base64, readable in the src attribute of an img tag
-    app.jinja_env.filters['b64encode'] = b64encode_filter
 
     # from .routes import route_1, route_2, ...
     from .routes import (
@@ -62,6 +63,3 @@ def create_app():
     app.register_blueprint(signup.signup)
 
     return app
-
-def b64encode_filter(data):
-    return base64.b64encode(data).decode('ascii') if data else ''

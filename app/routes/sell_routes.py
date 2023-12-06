@@ -1,12 +1,14 @@
-import mimetypes
-from flask import Blueprint, render_template, request, redirect, url_for, session
+from flask import Blueprint, render_template, request, redirect, url_for, session, flash
 from ..models.pipeline import db, Users, Listing, Album, Photo
+from openai import OpenAI
+from ..utils import upload_file
 
 sell = Blueprint('sell', __name__)
 
 @sell.route('/sell', methods=["GET", "POST"])
 def create_listing():
     
+    # TODO
     # Verify user is logged in and, if so, get user object
     # if 'userd_id' not in session:
     #     return(redirect(url_for('login_routes.login')))
@@ -42,11 +44,10 @@ def create_listing():
         # Create Photo objects and add to db
         for file in listing_photos:
             if file and file.filename:
-                file_data = file.read()
-                photo_mimetype = mimetypes.guess_type(file.filename)[0] or 'application/octet-stream'
-                
-                photo = Photo(album_id=album_id, photo_data=file_data, photo_mimetype=photo_mimetype)
-                db.session.add(photo)
+                photo_url = upload_file(file)
+                if photo_url:
+                    photo = Photo(album_id=album_id, photo_url=photo_url)
+                    db.session.add(photo)
         db.session.commit()
         
         return redirect(url_for('sell.sell_success', listing_id=new_listing.listing_id))
