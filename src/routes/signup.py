@@ -1,15 +1,11 @@
 
-from flask import Blueprint, abort, render_template, request, redirect, url_for
-from ..database import db
-import os
-from src.main import bcrypt
-from src.models.pipeline import Users
-#from __init__ import bcrypt
-# from flask_bcrypt import Bcrypt
-# import bcrypt
+from flask import Blueprint, abort, render_template, request, redirect, session
+from ..database import db,bcrypt
+from app.models.pipeline import Users
 signup = Blueprint('signup', __name__)
 # bcrypt = Bcrypt(signup)
 # signup.secret_key = os.getenv()
+
 
 @signup.route('/signup')
 def display():
@@ -24,10 +20,28 @@ def home():
 def create():
     email = request.form.get('email')
     password = request.form.get('password')
-    if not password or not email:
+
+    user = Users.get_by_username(username) # get instance of user based on username
+
+
+    """
+    Im just putting this here to check, a logged in user 
+    with a session should not be able to access the sign in page.
+    """
+    sesh_usr  = session.get('username') 
+
+    if user is not None or sesh_usr is not None: # if the user exists redirect them to the login page
+        return redirect('/login')
+
+    if not username or not password or not email:
         abort(400)
-    hashed_password = bcrypt.generate_password_hash(password, 12).decode()
-    new_user = Users(email,hashed_password )
+
+    hashed_password = bcrypt.generate_password_hash(password,12)
+    new_user = Users(username,email,hashed_password)
+
+    ##adding user session upon creation of a new user
+    session['username'] = username
     db.session.add(new_user)
     db.session.commit()
-    return redirect('/home')
+    print(f"\n{username}\n{email}\n{hashed_password}\n")
+    return redirect('/')

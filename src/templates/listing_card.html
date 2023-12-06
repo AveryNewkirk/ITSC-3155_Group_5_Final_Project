@@ -1,0 +1,21 @@
+<!-- CSS for listing card is defined in ~/app/static/css/main.css -->
+<!-- IMPORTANT: Any route that directly or indirectly includes this template must
+    send a Listing object in order for the Jinja variables to properly populate 
+
+    EXAMPLE:
+
+    @app.route('/<int:listing_id>')
+    def index(listing_id):
+        listing = Listing.query.get(listing_id)
+        return render_template('index.html', listing=listing)
+
+-->
+
+<div class="listing-card">
+    <div class="listing-card-image-container">
+        <img class="listing-card-image" src="data:{{ listing.album.photos[0].mime_type }};base64,{{ listing.album.photos[0].photo_data | b64encode }}" alt="{{ title }}">
+    </div>
+    <div class="listing-card-title">{{ listing.title }}</div>
+    <div class="listing-card-price">${{ listing.price }}</div>
+    <div class="listing-card-description">{{ listing.description }}</div>
+</div>
