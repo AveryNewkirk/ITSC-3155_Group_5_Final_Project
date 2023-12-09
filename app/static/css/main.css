@@ -66,6 +66,16 @@ button {
     background-color: var(--text-dark);
 }
 
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
+a:hover {
+    color: inherit;
+    text-decoration: underline;
+}
+
 /* HIDE SCROLLBAR */
 body::-webkit-scrollbar {
     width: 0px;
@@ -80,6 +90,7 @@ body {
         "header header"
         "sidebar main"
         "footer footer";
+    font-family: 'Lexend', sans-serif;
     font-family: "Signika Negative", sans-serif;
     color: var(--text-dark);
 }
@@ -118,6 +129,13 @@ body {
     height: 100%;
     background-color: var(--secondary-color-light);
     transition: width 0.5s ease;
+    padding-top: var(--padding-lg);
+}
+
+.sidebar-link-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
 }
 
 /* Collapsed sidebar styling */
@@ -164,7 +182,7 @@ body {
 /* MAIN CONTENT */
 .main-wrapper {
     grid-area: main;
-    padding-left: 2em;
+    padding: var(--padding-lg);
     overflow: hidden;
 }
 
@@ -176,7 +194,17 @@ body {
 /* FOOTER */
 .footer-wrapper {
     grid-area: footer;
+    display: flex;
+    gap: var(--margin-md);
     background-color: var(--primary-color);
+    font-family: 'Young Serif', serif;
+    align-items: center;
+    justify-content: center;
+}
+
+#footer {
+    display: flex;
+    gap: var(--margin-sm);
 }
 
 /*Custom button1 that is tangerine color feel free to adjust as needed*/
@@ -190,11 +218,11 @@ body {
     color: white;
     border: none;
     cursor: pointer;
-    padding: 5px 5px;
+    padding: 10px 10px;
 
 
 
-    font-size: 14px;
+    font-size: 20px;
 }
 
 /*Custom button2 that is tangerine color feel free to adjust as needed*/
