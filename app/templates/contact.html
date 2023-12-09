@@ -13,7 +13,30 @@
     <br>
     <p style="text-align: center;"><strong>The Best Way To Contact Us Is a Support Ticket</strong></p>
     <form action="/contact" method="post">
-        <button type="submit" id="submit" class="button button-secondary">Send Ticket</button>
+        <div style="margin-left: 10%;">
+            <label for="name" style="display: block;"><strong>Personal Info</strong></label>
+            <input type="text" id="name" name="name" placeholder="Enter your name or username..." style="display: block; width: 35%;">
+            <br>
+            <label for="prob" style="display: block;"><strong>Which of these best describes your issue?</strong></label>
+
+            <input type="radio" id="another" name="prob" value="another">
+            <label for="another">I am having problems with another user</label>
+            <br>
+            <input type="radio" id="account" name="prob" value="account">
+            <label for="account">I am having problems with my account</label>
+            <br>
+            <input type="radio" id="order" name="prob" value="order">
+            <label for="order">I am having problems with an order</label>
+            <br>
+            <input type="radio" id="website" name="prob" value="website">
+            <label for="website">I am having problems with the website's service</label>
+
+            <br>
+            <label for="details" style="display: block;"><strong>Details</strong></label>
+            <input type="text" id="details" name="details" placeholder="Please describe your issue in greater detail..." style="display: block; width: 80%;">
+        </div>
+        <br>
+        <button type="submit" id="submit" class="button button-secondary" style="margin-left: 50%; margin-right: 50%;">Send Ticket</button>
     </form>
 </div>
 <br>
@@ -33,4 +56,5 @@
         <p>ThriftMeSupport@gmail.com</p>
     </div>
 </div>
+<br>
 {% endblock %}
