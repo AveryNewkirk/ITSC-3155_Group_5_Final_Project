@@ -57,7 +57,7 @@ class Users(db.Model):
         return self.user_id
     
     #simple lookup using query id, returns none if not in db
-    def get_by_username(username):
+    def get_by_username(self, username):
         
         usr_instance = Users.query.filter_by(username=username).first()
         return usr_instance 

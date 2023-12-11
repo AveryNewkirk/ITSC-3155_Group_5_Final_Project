@@ -17,8 +17,13 @@
 <body>
     <!-- Header Wrapper -->
     <div class="header-wrapper">
-        <a href="#"><img src="../static/images/ThriftMe_logo.png" alt="ThriftMe logo" class="header-logo"></a>
-        <a href="#"><h1 class="ml-3 mt-3 header-text">ThriftMe</h1></a>
+        <div class="logo-container">
+            <a href="#"><img src="../static/images/ThriftMe_logo.png" alt="ThriftMe logo" class="header-logo"></a>
+            <a href="#"><h1 class="ml-3 mt-3 header-text">ThriftMe</h1></a>
+        </div>
+        <a href="{{ url_for('main.render_profile')}}" class="pfp-container">
+            <img src="../static/images/default-profile.png" alt="User profile" id="pfp-img">
+        </a>
     </div>
 
     <!-- Sidebar Wrapper -->
@@ -33,12 +38,8 @@
                 <li><a href="/marketplace" class="nav-item nav-link h5">Marketplace</a></li>
                 <li><a href="/community" class="nav-item nav-link h5">Community</a></li>
                 <li><a href="/sell" class="nav-item nav-link h5">Sell</a></li>
-                <li><a href="/contact" class="nav-item nav-link h5">Contact</a></li>
-                <li><a href="/settings" class="nav-item nav-link h5">Settings</a></li>
-                <li><a href="/profile" class="nav-item nav-link h5">Profile</a></li>
-                <li><a href="/user" class="nav-item nav-link h5">User</a></li>
+                <!-- TODO: Make Login option invisible while user is logged in -->
                 <li><a href="/login" class="nav-item nav-link h5">Login</a></li>
-                <li><a href="/signup" class="nav-item nav-link h5">Become a member</a></li>
             </ul>
         </nav>
     </div>

@@ -42,28 +42,33 @@
     --padding-xl: 24px;
 }
 
-
-
-
-
-
-
-
-
-
-
-
-.custom-container {
-    height: auto;
-    width: auto;
+form {
+    margin-top: var(--margin-md);
+    min-width: 30%;
 }
 
-/*ripped from riley*/
-/*TODO ask for help to make look better*/
-.community-container {
-    display: flex;
-    background-color: var(--primary-color);
-    border-radius: var(--radius-sm);
-    padding: var(--padding-xs);
-    margin: var(--margin-xs);
+hr.form-hr {
+    border: var(--primary-color) 3px solid;
+    border-radius: var(--radius-lg);
+    width: 100%;
+    margin: var(--margin-md) 0;
+}
+
+form.default-form {
+    width: fit-content;
+}
+
+span.not-member {
+    font-weight: 600;
+    font-size: var(--font-mdlg);
+}
+
+#sign-up {
+    color: var(--primary-color);
+    font-weight: 600;
+    transition: color 0.2s ease;
+}
+
+#sign-up:hover {
+    color: var(--secondary-color-light);
 }
