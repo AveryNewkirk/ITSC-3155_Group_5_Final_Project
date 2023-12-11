@@ -8,13 +8,19 @@
 {% block content %}
 </head>
 <body>
+    {% if username == None %}
     <header>
         <h1>Basic user info</h1>
     </header>
+    {% else %}
+    <header>
+        <h1>Page for: {{username}}</h1>
+    </header>
+    {% endif %}
     <main>
-        <h1>More detailed info possibly including details about purchases</h1>
+        <h2>More detailed info possibly including details about purchases</h2>
     </main>
     <footer>
-        <h1>Contact info</h1>
+        <h2>Contact info</h2>
     </footer>
 {% endblock %}

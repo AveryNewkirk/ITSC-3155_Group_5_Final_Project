@@ -7,6 +7,7 @@ from flask_bcrypt import Bcrypt
 from flask_uploads import configure_uploads
 from .config import photos
 
+
 def create_app():
     app = Flask(__name__)
     
@@ -24,6 +25,7 @@ def create_app():
     app.config['SQLAlCHEMY_ECHO'] = True
     app.config['SECRET_KEY'] = 'apples'
     app.config['SESSION_COOKIE_PATH'] = '/'
+    app.config['STATIC_FOLDER'] = 'static'
 
     db.init_app(app)
     bcrypt.init_app(app)

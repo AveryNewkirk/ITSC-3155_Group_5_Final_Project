@@ -39,8 +39,10 @@ def create():
     new_user = Users(username,email,hashed_password)
 
     ##adding user session upon creation of a new user
+    community_data = []
     session['username'] = username
+    session['community_data'] = community_data
     db.session.add(new_user)
     db.session.commit()
-    print(f"\n{username}\n{email}\n{hashed_password}\n")
+    print(f"\n{username}\n{email}\n\n")
     return redirect('/')
