@@ -1,7 +1,7 @@
 
 from flask import Blueprint, abort, render_template, request, redirect, session
 from ..database import db,bcrypt
-from app.models.pipeline import Users
+from src.models.pipeline import Users
 signup = Blueprint('signup', __name__)
 # bcrypt = Bcrypt(signup)
 # signup.secret_key = os.getenv()

@@ -35,13 +35,13 @@ class Users(db.Model):
     
 
     #Constructor that creates dummy user 
-    def __init__(self,email: str, password: str) -> None:
-        self.email = email
-        self.password = password
-        self.public_access = True
-        #can omit later since there is no logic to create a username or uplad profile picture right now
-        self.username = ''.join(random.choices('abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789', k=random.randint(5,20)))
-        self.profile_picture = binascii.b2a_base64(os.urandom(17))
+    # def __init__(self,email: str, password: str) -> None:
+    #     self.email = email
+    #    self.password = password
+    #    self.public_access = True
+    #     #can omit later since there is no logic to create a username or uplad profile picture right now
+    #     self.username = ''.join(random.choices('abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789', k=random.randint(5,20)))
+    #     self.profile_picture = binascii.b2a_base64(os.urandom(17))
     
     
     def __init__(self,username,email,pw_hash):
