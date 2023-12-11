@@ -1,6 +1,9 @@
-create database ThriftMe;
--- Store User information
--- Most important table
+--Test database we can create a diff instance in datagrip with
+-- This can be easily created and wiped over and over
+-- tables are identical to the ones in the most current commit so it works with models.py
+
+create database test_thriftme;
+
 CREATE TABLE users (
     user_id SERIAL PRIMARY KEY,
     username VARCHAR(50) NOT NULL,
@@ -18,8 +21,6 @@ CREATE TABLE albums (
     album_name VARCHAR(100),
     FOREIGN KEY (user_id) REFERENCES users(user_id) ON DELETE CASCADE
 );
-
-
 
 -- Table to store photos
 --Albums will rely on this table
@@ -58,12 +59,6 @@ CREATE TABLE listings (
     FOREIGN KEY (album_id) REFERENCES albums(album_id) ON DELETE SET NULL
 );
 
---forgot to add photos to listings lol PLEASE RUN THIS
-ALTER TABLE listings
-ADD COLUMN album_id INT,
-ADD FOREIGN KEY (album_id) REFERENCES albums(album_id) ON DELETE SET NULL;
-
-
 -- Represents community posts that can reference albums and a reference to listings if needed
 CREATE TABLE community_posts (
     community_post_id SERIAL PRIMARY KEY,
@@ -85,7 +80,6 @@ CREATE TABLE followers (
     FOREIGN KEY (user_id) REFERENCES users(user_id) ON DELETE CASCADE,
     FOREIGN KEY (follower_id) REFERENCES users(user_id) ON DELETE CASCADE
 );
-
 
 -- Different likes tables across posts for easier queries
 
@@ -115,8 +109,6 @@ CREATE TABLE listing_likes (
     FOREIGN KEY (user_id) REFERENCES users(user_id) ON DELETE CASCADE,
     FOREIGN KEY (listing_id) REFERENCES listings(listing_id) ON DELETE CASCADE
 );
-
-
 
 ---Separate comments tables for easier queries
 -- Comments on posts

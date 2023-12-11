@@ -36,15 +36,13 @@ def delete_account():
 
     if  username in session.values() and session['username'] == username:
         goner = Users.query.filter_by(username = username).first()
-        print(f"\nto be deleted:")
-        print(f"\n\n{goner}\n\n")
         db.session.delete(goner)
         session.pop('username')
+        session.pop('community_data')
         db.session.commit()
         return render_template('index.html')
         
     else:
-        print(f"\n\n{username} and {session.values()} currently in the session\n\n")
         return render_template('index.html')
 
 
@@ -102,18 +100,6 @@ def change_account_info():
         return redirect('/settings')
     else:
         return redirect('/')
-
-
-    
-
-
-
-
-
-    
-    
-
-
 
 #makes half of the password 
 def mask_first_half(input_string):

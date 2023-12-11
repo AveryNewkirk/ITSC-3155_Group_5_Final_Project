@@ -5,23 +5,31 @@ from .database import *
 from sqlalchemy import text
 from src.bcrypt_setup import init_bcrypt
 from flask_bcrypt import Bcrypt
-
-bcrypt = Bcrypt();
+from flask_uploads import  configure_uploads
+from .config import photos,TestingConfig
 
 
 def create_app():
     app = Flask(__name__)
     
+    # File upload configuration
+    app.config['UPLOADED_PHOTOS_DEST'] = 'app/static/user_images'
+    configure_uploads(app, photos)
+    
     load_dotenv()
 
     #app.secret_key = os.getenv('APP_SECRET_KEY', 'apple')
 
-    #database connection
-    app.config["SQLALCHEMY_DATABASE_URI"] = \
-    f'postgresql://{os.getenv("DB_USERNAME")}:{os.getenv("DB_PASSWORD")}@{os.getenv("DB_HOST")}:{os.getenv("DB_PORT")}/{os.getenv("DB_NAME")}'
-    app.config['SQLAlCHEMY_ECHO'] = True
-    app.config['SECRET_KEY'] = 'apples'
-    app.config['SESSION_COOKIE_PATH'] = '/'
+    #switch between config during testing
+    if os.environ.get('FLASK_ENV') == 'testing':
+        app.config.from_object(TestingConfig)
+        app.app_context().push()
+    else:
+        app.config["SQLALCHEMY_DATABASE_URI"] = \
+        f'postgresql://{os.getenv("DB_USERNAME")}:{os.getenv("DB_PASSWORD")}@{os.getenv("DB_HOST")}:{os.getenv("DB_PORT")}/{os.getenv("DB_NAME")}'
+        app.config['SQLAlCHEMY_ECHO'] = True
+        app.config['SECRET_KEY'] = 'apples'
+        app.config['SESSION_COOKIE_PATH'] = '/'
 
     db.init_app(app)
     bcrypt.init_app(app)
@@ -29,12 +37,10 @@ def create_app():
     with app.app_context():
         try:
             db.session.execute(text('SELECT 1'))
-            print(f'\n\tSuccessful connection to {os.getenv("DB_USERNAME")}\n')
+            print(f'\n\tSuccessful connection to {db.engine.url.render_as_string(hide_password=False)}\n')
+        
         except Exception as e:
             print(f"\nConnection failed. ERROR:{e}")
-
-    # Jinja filter for encoding bytes into base64, readable in the src attribute of an img tag
-    app.jinja_env.filters['b64encode'] = b64encode_filter
 
     # from .routes import route_1, route_2, ...
     from .routes import (
@@ -64,6 +70,3 @@ def create_app():
     app.register_blueprint(signup.signup)
 
     return app
-
-def b64encode_filter(data):
-    return base64.b64encode(data).decode('ascii') if data else ''
