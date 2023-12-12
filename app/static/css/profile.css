@@ -5,6 +5,7 @@
     --secondary-color-light: #588B8B;
     --secondary-color-dark: #297373;
     --text-dark: #1A1A1A;
+    --text-medium: #505050;
     --text-light: #E6E6E6;
     --background-white: #F9F9F9;
     --background-gray-light: #E6E6E6;
@@ -47,42 +48,60 @@
     display: flex;
     text-align: center;
     justify-content: space-between;
-    align-items: center;
-    margin-top: var(--margin-md);
-    margin-right: var(--margin-md);
+    align-items: start;
+    gap: var(--margin-md);
+    height: 80vh;
 }
 
 .profile-info {
-    height: 85vh;
-    width: 23vw;
-    padding: 20px;
-    border-radius: 12px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--margin-sm);
+    min-height: 100%;
+    width: 35%;
+    padding: var(--padding-lg);
+    border-radius: var(--radius-lg);
     background-color: var(--background-gray-light);
 }
 
-.profile-image {
+/* .profile-image {
     background-color: var(--background-gray-dark);
     height: 120px;
-    width: 120px;
-    /*Adjust values when implementing dynamic html*/
-    border-radius: 50%;
+    width: 120px; */
+/*Adjust values when implementing dynamic html*/
+/* border-radius: 50%;
     padding: 8px;
+} */
+
+.profile-pfp-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 120px;
+    height: 120px;
+    border-radius: 100%;
+    background-color: var(--background-gray-light);
+    border: var(--secondary-color-dark) 3px solid;
+    padding-bottom: 3px;
+}
+
+#profile-pfp-img {
+    width: 85%;
 }
 
 .profile-bio {
-    text-align: left;
-}
-
-.profile-bio-desc {
     display: flex;
+    width: 100%;
+    text-align: center;
     justify-content: center;
     height: 30vh;
-    padding-top: 10px;
+    padding: var(--padding-md);
     background-color: white;
-    border-radius: 12px;
+    border-radius: var(--radius-md);
 }
 
-.profile-bio-desc p {
+.profile-bio p {
     text-align: left;
 }
 
@@ -104,13 +123,11 @@
 }
 
 .profile-listings {
-    height: 85vh;
-    width: 50vw;
-    padding: 20px;
-    border-radius: 12px;
+    min-height: 100%;
+    width: 65%;
+    padding: var(--padding-lg);
+    border-radius: var(--radius-lg);
     color: white;
     text-align: center;
-    border-radius: 12px;
     background-color: var(--secondary-color-dark);
-    /* margin-left: 5vw; */
 }

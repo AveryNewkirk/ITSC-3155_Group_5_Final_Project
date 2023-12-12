@@ -6,6 +6,7 @@ from ..database import db
 import random,binascii,os
 from datetime import datetime
 from dataclasses import dataclass
+from sqlalchemy import func
 #TODO make classes for the other tables
 
 
@@ -284,9 +285,22 @@ class CommunityPostComment(db.Model):
                 f"comment owner: {Users.get_username_by_id(self.user_id)}\n")
             
 
-#I don't like these
+#--------------------------------------------------------
 community_post_likes = db.Table(
     'community_post_likes', 
    db.Column('user_id',db.Integer, db.ForeignKey('users.user_id', ondelete='CASCADE'), primary_key=True),
    db.Column('community_post_id',db.Integer, db.ForeignKey('community_post.post_id', ondelete='CASCADE'), primary_key=True)
 )
+
+
+
+#function to get the amount of likes
+def get_total_likes_for_community_post(post_id):
+    total_likes = (
+        db.session.query(func.count())
+        .filter(community_post_likes.c.community_post_id == post_id)
+        .scalar()
+    )
+    return total_likes
+
+#----------------------------------------------------------

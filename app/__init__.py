@@ -4,8 +4,8 @@ from dotenv import load_dotenv
 from .database import *
 from sqlalchemy import text
 from flask_bcrypt import Bcrypt
-from flask_uploads import configure_uploads
-from .config import photos
+from flask_uploads import  configure_uploads
+from .config import photos,TestingConfig
 
 
 def create_app():
@@ -19,13 +19,16 @@ def create_app():
 
     app.secret_key = os.getenv('APP_SECRET_KEY', 'apple')
 
-    #database connection
-    app.config["SQLALCHEMY_DATABASE_URI"] = \
-    f'postgresql://{os.getenv("DB_USERNAME")}:{os.getenv("DB_PASSWORD")}@{os.getenv("DB_HOST")}:{os.getenv("DB_PORT")}/{os.getenv("DB_NAME")}'
-    app.config['SQLAlCHEMY_ECHO'] = True
-    app.config['SECRET_KEY'] = 'apples'
-    app.config['SESSION_COOKIE_PATH'] = '/'
-    app.config['STATIC_FOLDER'] = 'static'
+    #switch between config during testing
+    if os.environ.get('FLASK_ENV') == 'testing':
+        app.config.from_object(TestingConfig)
+        app.app_context().push()
+    else:
+        app.config["SQLALCHEMY_DATABASE_URI"] = \
+        f'postgresql://{os.getenv("DB_USERNAME")}:{os.getenv("DB_PASSWORD")}@{os.getenv("DB_HOST")}:{os.getenv("DB_PORT")}/{os.getenv("DB_NAME")}'
+        app.config['SQLAlCHEMY_ECHO'] = True
+        app.config['SECRET_KEY'] = 'apples'
+        app.config['SESSION_COOKIE_PATH'] = '/'
 
     db.init_app(app)
     bcrypt.init_app(app)
@@ -33,7 +36,8 @@ def create_app():
     with app.app_context():
         try:
             db.session.execute(text('SELECT 1'))
-            print(f'\n\tSuccessful connection to {os.getenv("DB_USERNAME")}\n')
+            print(f'\n\tSuccessful connection to {db.engine.url.render_as_string(hide_password=False)}\n')
+        
         except Exception as e:
             print(f"\nConnection failed. ERROR:{e}")
 

@@ -1,4 +1,3 @@
-
 /* VARIABLES */
 :root {
     /* Colors */
@@ -6,6 +5,7 @@
     --secondary-color-light: #588B8B;
     --secondary-color-dark: #297373;
     --text-dark: #1A1A1A;
+    --text-medium: #505050;
     --text-light: #E6E6E6;
     --background-white: #F9F9F9;
     --background-gray-light: #E6E6E6;
@@ -56,7 +56,7 @@
 
 
 
-.custom-container{
+.custom-container {
     height: auto;
     width: auto;
 }
@@ -69,6 +69,7 @@
     border-radius: var(--radius-sm);
     padding: var(--padding-xs);
     margin: var(--margin-xs);
+
 }
 
 
