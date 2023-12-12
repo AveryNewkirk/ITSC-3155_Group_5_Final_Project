@@ -10,6 +10,7 @@ from .config import photos
 
 def create_app():
     app = Flask(__name__)
+    app.debug = True
     
     # File upload configuration
     app.config['UPLOADED_PHOTOS_DEST'] = 'app/static/user_images'

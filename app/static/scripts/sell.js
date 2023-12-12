@@ -17,12 +17,21 @@ document.addEventListener('DOMContentLoaded', function () {
     document.getElementById('price').addEventListener('input', updatePreview);
     document.getElementById('item-description').addEventListener('input', updatePreview);
 
-    // Optional: If you have a button to generate a description, you could implement its functionality as well
     document.getElementById('generate-description').addEventListener('click', function () {
-        // Placeholder for description generation logic
-        const generatedDescription = 'Automatically generated description based on images...';
-        document.getElementById('item-description').value = generatedDescription;
-        updatePreview();
+        let album_id = document.getElementById('album-id').value;
+        fetch('/generate_description', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ album_id: album_id })
+        })
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById('item-description').value = data.description;
+                updatePreview();
+            })
+            .catch(error => console.error('Error: ', error))
     });
 });
 
@@ -73,3 +82,63 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     });
 });
+
+document.addEventListener('DOMContentLoaded', function () {
+    document.getElementById('upload-pictures').addEventListener('change', function (event) {
+        uploadFiles(event.target.files);
+    });
+})
+
+function uploadFiles(files) {
+    let formData = new FormData();
+    for (let i = 0; i < files.length; i++) {
+        formData.append('upload-pictures', files[i]);
+    }
+
+    fetch('/upload_images', {
+        method: 'POST',
+        body: formData
+    })
+        .then(response => response.json())
+        .then(data => {
+            let album_id = data.album_id;
+            document.getElementById('album-id').value = album_id;
+        })
+        .catch(error => console.error('Error: ', error))
+}
+
+document.addEventListener('DOMContentLoaded', function () {
+    document.getElementById('generate-images').addEventListener('click', function () {
+        description = document.getElementById('item-description').value
+        if (description) {
+            generateImages(description);
+        } else {
+            alert('Please generate or write your own detailed description first!');
+        }
+    })
+})
+
+function generateImages(description) {
+    fetch('/generate_pictures', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ description: description })
+    })
+        .then(response => response.json())
+        .then(data => {
+            image_url = data.image_url;
+            console.log(image_url)
+            const modelImages = document.querySelectorAll('.model-img');
+            console.log(modelImages)
+            modelImages.forEach(image => {
+                if (!image.classList.contains('populated')) {
+                    image.setAttribute('src', image_url);
+                    console.log(image)
+                    return
+                }
+            })
+        })
+        .catch(error => console.error('Error: ', error))
+}

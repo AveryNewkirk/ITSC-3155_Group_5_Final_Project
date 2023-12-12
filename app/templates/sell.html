@@ -24,19 +24,33 @@
             
             <label for="item-description">Description</label>
             <textarea id="item-description" name="item-description" placeholder="Describe your item..."></textarea>
-            <button type="button" id="generate-description" class="button button-secondary">Generate description from images</button>
+            <button type="button" id="generate-description" class="button button-secondary">Generate Description</button>
             
             <label>Select Generated Model Pictures</label>
             <div class="generated-images">
-                <!-- Add JavaScript code to populate this section with images -->
-                <div class="image-placeholder">/</div>
-                <div class="image-placeholder">/</div>
-                <div class="image-placeholder">/</div>
-                <div class="image-placeholder">/</div>
+                <label class="image-checkbox">
+                    <input type="checkbox" name="model" id="model-1-checkbox">
+                    <div class="image-placeholder"><img src="" id="model-1" class="model-img hidden"></div>
+                </label>
+                <label class="image-checkbox">
+                    <input type="checkbox" name="model" id="model-2-checkbox">
+                    <div class="image-placeholder"><img src="" id="model-2" class="model-img hidden"></div>
+                </label>
+                <label class="image-checkbox">
+                    <input type="checkbox" name="model" id="model-3-checkbox">
+                    <div class="image-placeholder"><img src="" id="model-3" class="model-img hidden"></div>
+                </label>
+                <label class="image-checkbox">
+                    <input type="checkbox" name="model" id="model-4-checkbox">
+                    <div class="image-placeholder"><img src="" id="model-4" class="model-img hidden"></div>
+                </label>
             </div>
+            <button type="button" id="generate-images" class="button button-secondary">Generate Model</button>
 
             <label for="price">Price</label>
             <input type="text" id="price" name="price" placeholder="$0.00">
+
+            <input type="hidden" id="album-id" name="album-id">
             
             <button type="submit" class="button button-secondary">Post your item!</button>
         </form>
