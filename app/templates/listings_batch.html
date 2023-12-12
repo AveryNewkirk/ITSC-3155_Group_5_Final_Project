@@ -1,0 +1,29 @@
+
+
+<!-- Send this to the community page and append it to the end-->
+<!--TODO fix broken link to post-->
+
+<script src="https://cdn.jsdelivr.net/npm/masonry-layout@4.2.2/dist/masonry.pkgd.min.js" integrity="sha384-GNFwBvfVxBkLMJpYMOABq3c+d3KnQxudP/mGPkzpZSTYykLBNsZEnG2D9G/X/+7D" crossorigin="anonymous" async></script>
+<link rel="stylesheet" href="/static/css/community.css">
+
+
+        {% for item in temp %}
+        <div class="card community-container h-100" style="height: 200px; object-fit: cover;">
+            <a href="#">
+                <img class="card-img img-fluid" src="{{item[2]}}" alt="Card image cap">
+            </a>
+            <div class="card-img-overlay">
+
+                <div class="card-block">
+
+                    <a href="{{url_for('marketplace.listing_', listing_id=(item[1]|int), _method='POST')}}">
+                    <p class="card-text">{{ item[0] }}</p>
+                    </a>
+
+                </div>
+            
+            </div>
+        </div>        
+        {% endfor %}
+
+    
