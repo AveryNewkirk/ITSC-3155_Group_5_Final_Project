@@ -4,14 +4,12 @@
     --primary-color: #C8553D;
     --secondary-color-light: #588B8B;
     --secondary-color-dark: #297373;
-    --text-dark: #1A1A1A;
-    --text-medium: #505050;
-    --text-light: #E6E6E6;
-    --background-white: #F9F9F9;
-    --background-gray-light: #E6E6E6;
-    --background-gray-dark: #D9D9D9;
-    --button-Tangerine: #F28F3B;
-    --button-Jet: #39393A;
+    --dark-gray: #1A1A1A;
+    --medium-gray: #505050;
+    --light-gray: #b5b5b5;
+    --background-dark: #D9D9D9;
+    --background-light: #E6E6E6;
+    --background-white: #F8F8F8;
 
     /* Measurements */
     /* Font Size */
@@ -46,7 +44,7 @@
 form.default-form {
     display: flex;
     flex-direction: column;
-    background-color: var(--background-gray-light);
+    background-color: var(--background-light);
     padding: var(--padding-lg);
     border-radius: var(--radius-md);
 }
@@ -114,7 +112,7 @@ button {
 
 .button-primary {
     background-color: var(--primary-color);
-    color: var(--text-light);
+    color: var(--background-white);
     transition: background-color 0.2s ease;
 }
 
@@ -133,11 +131,11 @@ button {
 }
 
 .button-light {
-    background-color: var(--background-gray-light);
+    background-color: var(--background-light);
 }
 
 .button-dark {
-    background-color: var(--text-dark);
+    background-color: var(--dark-gray);
 }
 
 a {
@@ -166,7 +164,8 @@ body {
         "footer footer";
     font-family: 'Lexend', sans-serif;
     font-family: "Signika Negative", sans-serif;
-    color: var(--text-dark);
+    color: var(--dark-gray);
+    background-color: var(--background-white);
 }
 
 /* HEADER */
@@ -188,12 +187,12 @@ body {
 .header-logo {
     width: 64px;
     margin-left: var(--padding-md);
-    border: var(--background-gray-light) 3px solid;
+    border: var(--light-gray) 3px solid;
     border-radius: 100%;
 }
 
 .header-text {
-    color: var(--text-dark);
+    color: var(--dark-gray);
 }
 
 .pfp-container {
@@ -203,7 +202,7 @@ body {
     width: 64px;
     height: 64px;
     border-radius: 100%;
-    background-color: var(--background-gray-light);
+    background-color: var(--background-white);
     border: var(--secondary-color-dark) 3px solid;
     margin-right: var(--padding-md);
     padding-bottom: 3px;
@@ -250,7 +249,7 @@ body {
     transform: translateY(-50%);
     border: none;
     background-color: var(--primary-color);
-    color: var(--text-light);
+    color: var(--background-white);
     border-radius: 12px;
     padding: 10px;
     transition: background-color 0.2s ease;
@@ -268,7 +267,7 @@ body {
 /* Custom styling for sidebar nav links */
 .sidebar .nav-item.nav-link {
     transition: background-color 0.2s ease;
-    color: var(--text-light);
+    color: var(--background-white);
 }
 
 .sidebar .nav-item.nav-link:hover {
@@ -308,7 +307,7 @@ body {
 .custom-button1 {
 
     /* Set the desired background color */
-    background-color: var(--button-Tangerine);
+    background-color: var(--primary-color);
     /* Replace with your preferred color code */
 
 
@@ -327,7 +326,7 @@ body {
 .custom-button2 {
 
     /* Set the desired background color */
-    background-color: var(--button-Jet);
+    background-color: var(--dark-gray);
     /* Replace with your preferred color code */
 
 
@@ -347,7 +346,7 @@ body {
     flex-direction: column;
     width: 264px;
     border-radius: var(--radius-md);
-    background-color: var(--background-gray-dark);
+    background-color: var(--background-dark);
     padding: var(--padding-mdlg);
 }
 
@@ -366,6 +365,7 @@ body {
     object-fit: cover;
     object-position: center;
     border-radius: var(--radius-md);
+    border: 3px solid var(--medium-gray);
 }
 
 .listing-card-title {
@@ -384,7 +384,7 @@ body {
 
 .link {
     font-size: 1rem;
-    background-color: var(--background-gray-light);
+    background-color: var(--background-light);
     border-radius: var(--radius-md);
     padding: 1px var(--padding-md);
 }

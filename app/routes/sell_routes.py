@@ -24,7 +24,7 @@ sell = Blueprint('sell', __name__)
 @sell.route('/sell', methods=["GET", "POST"])
 def create_listing():
     
-    # TODO
+    # TODO:
     # Verify user is logged in and, if so, get user object
     # if 'userd_id' not in session:
     #     return(redirect(url_for('login_routes.login')))
@@ -175,6 +175,13 @@ def generate_pictures():
     print('GENERATE_PICTURES: image_url: ')
     print(image_url)
     return jsonify({'image_url': image_url})
+
+
+# Alternative /generate_pictures route for testing
+# @sell.route('/generate_pictures', methods=['POST'])
+# def generate_pictures():
+#     image_url = 'https://art.pixilart.com/a4d7353d97dd6d4.png'
+#     return jsonify({'image_url': image_url})
 
 @sell.route('/sell_success/<int:listing_id>')
 def sell_success(listing_id):

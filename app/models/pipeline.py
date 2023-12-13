@@ -130,7 +130,7 @@ class Album(db.Model):
         self.user_id = user_id
         self.album_name = album_name
         
-    def get_by_id(album_id):
+    def get_by_id(album_id: int):
         return Album.query.get(album_id)
 
 

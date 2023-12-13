@@ -6,6 +6,8 @@
 {% endblock %}
 
 {% block content %}
+<!-- Loading overlay -->
+<div class="loading hidden">Loading...</div>
 <!-- Content container -->
 <div class="sell-container">
     <!-- Form container -->
@@ -30,19 +32,19 @@
             <div class="generated-images">
                 <label class="image-checkbox">
                     <input type="checkbox" name="model" id="model-1-checkbox">
-                    <div class="image-placeholder"><img src="" id="model-1" class="model-img hidden"></div>
+                    <div class="image-placeholder empty"></div>
                 </label>
                 <label class="image-checkbox">
                     <input type="checkbox" name="model" id="model-2-checkbox">
-                    <div class="image-placeholder"><img src="" id="model-2" class="model-img hidden"></div>
+                    <div class="image-placeholder empty"></div>
                 </label>
                 <label class="image-checkbox">
                     <input type="checkbox" name="model" id="model-3-checkbox">
-                    <div class="image-placeholder"><img src="" id="model-3" class="model-img hidden"></div>
+                    <div class="image-placeholder empty"></div>
                 </label>
                 <label class="image-checkbox">
                     <input type="checkbox" name="model" id="model-4-checkbox">
-                    <div class="image-placeholder"><img src="" id="model-4" class="model-img hidden"></div>
+                    <div class="image-placeholder empty"></div>
                 </label>
             </div>
             <button type="button" id="generate-images" class="button button-secondary">Generate Model</button>
@@ -56,14 +58,14 @@
         </form>
     </div>
     <div class="sell-preview-container">
+        <div id="preview-header">
+            Listing Preview
+        </div>
         <div class="listing-card">
-            <div id="listing-image-preview" class="listing-image-preview"><img src="" alt="" id="listing-image-preview-img" class="hide"></div>
+            <div id="listing-image-preview" class="listing-image-preview empty"><img src="" alt="" id="listing-image-preview-img" class="hidden"></div>
             <div id="listing-title-preview" class="listing-title-preview">Listing Title</div>
             <div id="listing-price-preview" class="listing-price-preview">$0.00</div>
             <div id="listing-description-preview" class="listing-description-preview">Description preview... Lorem ipsum dolor sit amet consectetur adipisicing elit. Deleniti, sunt?</div>
-        </div>
-        <div id="preview-header">
-            Preview
         </div>
     </div>
 </div>
