@@ -4,21 +4,22 @@ import pickle
 from ..models.pipeline import *
 from ..utils import upload_file
 
+
 community = Blueprint('community', __name__,template_folder='templates',static_folder='static')
 
 
-batch_limit = 6 #9 per batch is ideal since the community page will generate 3x3 grids at a time
+batch_limit = 9 #a multiple of 3 per batch is ideal since the community page will generate 3x3 grids at a time
 page_num = 1 #start at one for the page number then increment on each request
-total_limit =36
+total_limit = 36
 
 #generate posts from database is kind of janky but works well enough
 def generate_data():
     global page_num
     ## offset to increment the query for the posts is a bit unstable
-    offset = (page_num-1) * batch_limit
-    page_num+=1    
+    offset = (page_num - 1) * batch_limit
+    page_num += 1    
     community_data = session.get('community_data')
-
+    
     #check for problematic comunity data
     if community_data is None:
         print('problematic')
@@ -37,20 +38,19 @@ def generate_data():
     .all()
     )
     
-    #cast to tuples so json won't complain
+    #cast to tuples to avoid JSON errors 
     processed_temp = ([tuple(row) for row in temp if not(row is None)])
 
 
     #add the batch of posts to the total amount of posts the user has generated
-    #set operation for lazy data integrity may unsort the list
-    community_data.extend((list(set(processed_temp))))
+    community_data.extend((processed_temp))
 
     #test byte length if too many end up in the cookie data everything gets deleted
     byte_length = len(pickle.dumps(community_data))
     print(byte_length)
 
     #IMPORTANT update the session data
-    session['community_data'] = sorted(community_data,reverse=True)
+    session['community_data'] = sorted(list(set(community_data)), reverse=True)
 
     #return the batch when ONLY when below the limit
     return processed_temp
@@ -63,7 +63,7 @@ def community_page():
     community_data = session.get('community_data')
 
         
-    #handles if the user has clicked off the page and decided to return before the limit
+    #handles if the user has clicked off the page and decided to return before the limit has been reached
     if username in session.values() and len(community_data) < total_limit:
         generate_data()
         return render_template('community.html', community_data = (community_data))
@@ -78,7 +78,7 @@ def community_page():
         return redirect('/')
 
 
-#get generated data and append to the end of the webpage
+#get generated data and append to the end of the webpage if the post is older
 @community.route('/get_data')
 def more_posts():
 
@@ -93,12 +93,11 @@ def more_posts():
         print("stop")
         return 'STOP'
     else:
-        temp = list(set(generate_data()))
+        temp = generate_data()
         return  jsonify ({'html': render_template('community_posts_batch.html', temp=temp)})
     
 
 #Get a single instance of a community post
-#It is atrocious but who cares
 #TODO add design elements
 @community.route('/community_post/<int:community_post_id>',methods=['POST','GET'])
 def community_post_(community_post_id):
@@ -108,6 +107,7 @@ def community_post_(community_post_id):
     curr_user = Users.get_by_username(username)
     post = CommunityPost.get_by_id(community_post_id=community_post_id)
 
+    #kick the user out if they are not in the session
     if not (username or user) or username not in session.values():
         return redirect('/')
     
@@ -117,7 +117,7 @@ def community_post_(community_post_id):
     
 
 
-    #query to get post content, album, and photo data
+    #query to get post content, album, and photo url
     post_content = (db.session.query(
         CommunityPost.post_content,
         CommunityPost.album_id,
@@ -130,11 +130,10 @@ def community_post_(community_post_id):
     )
 
 
-    #query to get likes and comments
-    likes_comments = (
+    #query to get comments using likes as a junction table
+    comments = (
     db.session.query(
         CommunityPostComment.comment_content,
-        func.count().label('like_count'),
         CommunityPostComment.user_id
     )
     .outerjoin(community_post_likes, CommunityPostComment.community_post_id == community_post_likes.c.community_post_id)
@@ -152,25 +151,22 @@ def community_post_(community_post_id):
     )).scalar()
     
     
-    #if likes and comments is null set like count to 0
-    if likes_comments:
-        like_count = likes_comments[0][1]
-    else:
-        like_count = 0
+    like_count = get_total_likes_for_community_post(community_post_id)
 
     #swap user_id with the username
-    likes_comments = [(x,y ,Users.get_username_by_id(int(z))) for x,y,z in likes_comments]
+    comments = [(x,Users.get_username_by_id(int(y))) for x,y in comments]
 
-    
+    #debug return in case of error
     if post_content is None:
         return f"<h1>{post_content} and {community_post_id}</h1>"
+    
     #send all of the data to the html page
     return render_template('community_singleton.html',
                            community_post_id = community_post_id,
                            post_content = post_content.post_content,
                            album_id = post_content.album_id,
                            photo_url = post_content.photo_url,
-                           comments_and_likes = likes_comments,
+                           comments = comments,
                            likes = like_count,
                            owner = owner_flag,
                            curr_username = curr_username,
@@ -223,7 +219,7 @@ def community_like():
 
 
 
-    
+#helps user comment on a post
 @community.route('/community_comment', methods = ['POST','GET'])
 def community_comment():
 
@@ -235,11 +231,13 @@ def community_comment():
     if (username not in session.values()) or ((username or comment) is None ):
         return abort(405)
     
+    #forbid empty strings in comments
     elif comment == '':
         return abort(405)
     
     else:
-        
+
+        #get the instance of user currently in the session
         user = Users.get_by_username(session.get('username'))
         #create new comment object
         comment = CommunityPostComment(user_id = user.get_id(),community_post_id = community_post_id, comment_content=comment)
@@ -255,7 +253,6 @@ def community_comment():
 
 @community.route('/new_community_post', methods = ['POST'])
 def new_post():
-    username = session.get('username')
 
     return render_template('new_community_post.html')
     
@@ -290,12 +287,15 @@ def create_post():
                 picture = Photo(album_id=album_id,photo_url=url_for('static',filename = f"user_images/{photo_url}"))
                 db.session.add(picture)
                 db.session.commit()
+
+    #debug statment to check if data is being added            
     try:
         pass
     except Exception as e:
         print(f"An error occurred: {str(e)}")
         db.session.rollback()
 
+    #add the new post to the users session 
     data = session.get('community_data')
 
     data.extend([(community_post.post_content, community_post.community_post_id, picture.photo_url)])
@@ -305,10 +305,11 @@ def create_post():
 
 
 
+#helps user delete their post as long as they are the owner
 @community.route('/delete_post/<int:community_post_id>',methods=['GET','POST'])
 def delete_post(community_post_id):
     
-
+    #Search for the post data in the db
     post_content = (db.session.query(
         CommunityPost.post_content,
         CommunityPost.community_post_id,
@@ -319,18 +320,17 @@ def delete_post(community_post_id):
     .filter(CommunityPost.community_post_id == community_post_id)
     .first()
     )
+    
 
 
     community_post = CommunityPost.get_by_id(community_post_id=community_post_id)
-
         
     community_data = session.get('community_data')
-
     
     community_data.remove(post_content)
 
-    session['community_data'] = community_data
-    
+    #update the list of community posts generated
+    session['community_data'] = list(set(community_data))
 
     db.session.delete(community_post)
     db.session.commit()
