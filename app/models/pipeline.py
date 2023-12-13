@@ -107,6 +107,20 @@ class Listing(db.Model):
             f"user_id: {self.user_id}\n"
             f"album_id: {self.album_id}\n"
         )
+    
+    ##getters for to make life better 
+    def get_by_id(listing_id):
+
+        return Listing.query.filter_by(listing_id=listing_id).first()
+
+    def get_id(self):
+        return self.listing_id
+    
+    def get_owner_id(self):
+        return self.user_id
+    
+    def get_count():
+        return db.session.query(Listing.user_id).count()
 
 
 """

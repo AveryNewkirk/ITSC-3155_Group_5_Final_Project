@@ -163,7 +163,7 @@ def listing_(listing_id):
     #send all of the data to the html page
     return render_template('marketplace_singleton.html',
                            listing_id = listing_id,
-                           post_content = post_content.post_content,
+                           post_content = post_content.title,
                            album_id = post_content.album_id,
                            photo_url = post_content.photo_url,
                            comments = comments,

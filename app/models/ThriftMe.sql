@@ -160,6 +160,7 @@ VALUES
 select * from users;
 select * from community_posts;
 select * from listings;
+select * from albums;
 delete from users;
 delete from listings;
 delete from community_posts;
