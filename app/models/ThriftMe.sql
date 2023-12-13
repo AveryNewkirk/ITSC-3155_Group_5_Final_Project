@@ -164,3 +164,4 @@ select * from albums;
 delete from users;
 delete from listings;
 delete from community_posts;
+delete from albums;

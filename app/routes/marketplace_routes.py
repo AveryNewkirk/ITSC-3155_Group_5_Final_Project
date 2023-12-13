@@ -29,6 +29,8 @@ def generate_data():
     temp = (db.session.query(
         Listing.title,
         Listing.listing_id,
+        Listing.description,
+        Listing.price,
         Photo.photo_url
     )
     .join(Album, Listing.album_id == Album.album_id)
@@ -121,6 +123,8 @@ def listing_(listing_id):
     post_content = (db.session.query(
         Listing.title,
         Listing.album_id,
+        Listing.description,
+        Listing.price,
         Photo.photo_url
     )
     .join(Album, Listing.album_id == Album.album_id)
@@ -164,6 +168,8 @@ def listing_(listing_id):
     return render_template('marketplace_singleton.html',
                            listing_id = listing_id,
                            post_content = post_content.title,
+                           price = post_content.price,
+                           desc = post_content.description,
                            album_id = post_content.album_id,
                            photo_url = post_content.photo_url,
                            comments = comments,
@@ -265,6 +271,7 @@ def delete_post(listing_id):
     post_content = (db.session.query(
         Listing.post_content,
         Listing.listing_id,
+        Listing.description,
         Photo.photo_url
     )
     .join(Album, Listing.album_id == Album.album_id)

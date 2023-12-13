@@ -14,43 +14,54 @@ def create_listing():
     #     return(redirect(url_for('login_routes.login')))
     
     # Create user for testing purposes
-    user = Users('testuser', 'testemail', 'testpass')
-    db.session.add(user)
-    db.session.commit()
+
     
     if request.method == 'POST':
-        # Get field from dummy user
-        user_id = user.user_id
+        #-------------------------------------------------------------------------------------
+        username = session.get('username')
         
-        # Extract form fields
+
+        if username not in session.values() or username is None:
+            return(render_template("index.html"))
+
+        user = Users.get_by_username(username)
         title = request.form['listing-title']
         description = request.form['item-description']
         price = float(request.form['price'])
-        listing_photos = request.files.getlist('upload-pictures')
-        
-        # Create Album object for images
-        listing_album = Album(user_id)
-        db.session.add(listing_album)
+        photo_stream = request.files.getlist('upload-pictures')
+
+        album = Album(user.get_id(),f"{username}'s album")
+        db.session.add(album)
         db.session.commit()
-        
-        # Get album_id
-        album_id = listing_album.album_id
-        
-        # Create new listing
-        new_listing = Listing(title=title, description=description, price=price, user_id=user_id, album_id=album_id)
+        album_id = album.album_id
+
+        new_listing = Listing(title=title, description=description, price=price, user_id = user.get_id(), album_id=album_id)
         db.session.add(new_listing)
         db.session.commit()
-        
-        # Create Photo objects and add to db
-        for file in listing_photos:
-            if file and file.filename:
-                photo_url = upload_file(file)
+
+        for photo in photo_stream:
+            if photo and photo.filename:
+                photo_url = upload_file(photo)
                 if photo_url:
-                    photo = Photo(album_id=album_id, photo_url=photo_url)
-                    db.session.add(photo)
-        db.session.commit()
-        
+                    picture = Photo(album_id=album_id,photo_url=url_for('static',filename = f"user_images/{photo_url}"))
+                    db.session.add(picture)
+                    db.session.commit()
+
+        #debug statment to check if data is being added            
+        try:
+            pass
+        except Exception as e:
+            print(f"An error occurred: {str(e)}")
+            db.session.rollback()
+
+        #add the new post to the users session 
+        data = session.get('marketplace_data')
+
+        data.extend([(new_listing.title, new_listing.listing_id, picture.photo_url, new_listing.description, new_listing.price)])
+        session['marketplace_data'] = sorted(data,reverse=True)
+
         return redirect(url_for('sell.sell_success', listing_id=new_listing.listing_id))
+        #-------------------------------------------------------------------------------------
         
     # Default to showing empty Sell page
     return render_template('sell.html')

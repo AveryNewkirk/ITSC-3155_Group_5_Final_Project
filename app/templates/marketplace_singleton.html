@@ -13,19 +13,23 @@
 
 
 <h2>
-    {{post_content}}
+    <strong>{{post_content}}</strong>
 </h2>
 
 <hr class = "border border-muted border-1 opacity-75">
 
 <div class="card rounded  mx-2 bg-light text-secondary">
+    
     <div class="row justify-content-center">
         <div class = "col-md-9 justify-content-center">
             <div id="carouselExampleSlidesOnly" class="rounded img-fluid" data-ride="carousel">
-                    <img class="d-block float-end" src="{{photo_url}}" alt="First slide"  width="75%" height=" 75%">
+                    <img class="d-block float-end" src="{{photo_url}}" alt="First slide"  width="30%" height=" 30%">
             </div>
         </div>  
     </div>
+
+    <h3>${{price}}</h3>
+    <h4>{{desc}}</h4>
 </div>  
 
 <div>

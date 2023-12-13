@@ -366,6 +366,16 @@ body {
     object-fit: cover;
     object-position: center;
     border-radius: var(--radius-md);
+    border: 3px solid var(--light-gray);
+}
+
+.listing-card-row {
+    display: flex;
+    gap: var(--padding-sm);
+}
+
+.listing-card-likes-container {
+    font-size: var(--fontlg);
 }
 
 .listing-card-title {
