@@ -54,7 +54,9 @@ def create_app():
         contact_routes,
         user_routes,
         marketplace_routes,
-        signup
+        signup,
+        # TODO: remove listing_card_test_routes
+        listing_card_test_routes
     )
     
     app.register_blueprint(index_routes.index)
@@ -68,5 +70,7 @@ def create_app():
     app.register_blueprint(user_routes.user)
     app.register_blueprint(marketplace_routes.marketplace)
     app.register_blueprint(signup.signup)
+    # TODO: remove listing_card_test_routes
+    app.register_blueprint(listing_card_test_routes.cards)
 
     return app

@@ -217,8 +217,8 @@ def generate_description(album_id):
         The attached image is a photograph of a single item of clothing. 
         Any additional attached images are additional photographs of the same item of clothing taken from various angles.
 
-        Your task is to please create a highly detailed description of the clothing item shown in the photograph(s). 
-        The description should be extremely thorough and include any and all possible information about the clothing item. 
+        Your task is to create a highly detailed description of the clothing item shown in the photograph(s) that is no more than 150 words in length. 
+        The description should be extremely thorough and include any and all possible information about the clothing item, while also concise enough to be no longer than 150 words. 
         At the very least, the description should describe each of the following attributes of the clothing item in comprehensive detail:
 
         List of clothing item attributes:
@@ -231,8 +231,8 @@ def generate_description(album_id):
         7. Pattern/Design: Any prints or patterns on the fabric, like stripes, floral, polka dots, abstract, etc.
         8. Detailing: Any features like embroidery, lace, buttons, zippers, pockets, ruffles, etc.
 
-        Take a minimal approach to sentence structure and cut out unnecessary words. 
-        Avoid simply listing out information and write in full paragraphs instead. 
+        Take a minimal approach to sentence structure and cut out unnecessary words to stay within the 150-word length limit. 
+        Avoid simply listing out information and write in full sentences instead. 
         As you write, act as though the clothing item is right in front of you and do not acknowledge the existence of the image whatsoever. 
         Finally, write the description in the style of an online seller writing a description for a listing.
         '''
