@@ -35,7 +35,8 @@ def create():
     if not username or not password or not email:
         abort(400)
 
-    hashed_password = bcrypt.generate_password_hash(password,12)
+    hashed_password = bcrypt.generate_password_hash(password,12).decode('utf-8')
+    print(hashed_password)
     new_user = Users(username,email,hashed_password)
 
     ##adding user session upon creation of a new user

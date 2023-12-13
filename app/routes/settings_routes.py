@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, request, redirect, url_for, session,flash
+from flask import Blueprint, render_template, request, redirect, session
 from ..database import bcrypt
 from ..models.pipeline import Users,db
 # Create Blueprint
@@ -89,7 +89,7 @@ def change_account_info():
             user.public_access = not user.public_access
 
         if flag == 'change-password':
-            hashed_password = bcrypt.generate_password_hash(password,12)
+            hashed_password = bcrypt.generate_password_hash(password,12).decode('utf-8')
             user.password = hashed_password
 
         if flag == 'change-email':
