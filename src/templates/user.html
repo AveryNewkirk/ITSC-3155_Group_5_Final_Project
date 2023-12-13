@@ -1,8 +1,11 @@
 <!-- USER PAGE -->
 {% extends "template.html" %}
-
+<head>
 {% block head %}
 <!-- <link rel="stylesheet" href="../static/css/<YOUR STYLESHEET HERE>"> -->
+    <head>
+        <link rel="stylesheet" type="text/css" href="../static/css/profile.css">
+    </head>
 {% endblock %}
 
 {% block content %}
@@ -13,14 +16,21 @@
         <h1>Basic user info</h1>
     </header>
     {% else %}
-    <header>
-        <h1>Page for: {{username}}</h1>
-    </header>
+        <h1></h1>
     {% endif %}
     <main>
-        <h2>More detailed info possibly including details about purchases</h2>
+        <div class="profile-layout">
+            <div class="profile-info">
+                <h2>Username</h2>
+                <div class="profile-bio">Contact info</div>
+            </div>
+            <div class="profile-listings"> <!-- TODO implement pull from server page and scrollbar css-->
+                <h4>Listings</h4>
+            </div>
+        </div>
+        
     </main>
     <footer>
-        <h2>Contact info</h2>
+
     </footer>
 {% endblock %}
