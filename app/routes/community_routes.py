@@ -264,12 +264,13 @@ def new_post():
 def create_post():
 
     username = session.get('username')
-    
+    print(username)
 
     if username not in session.values() or username is None:
         abort(405)
 
     user = Users.get_by_username(username)
+    print(user)
     caption = request.form.get('post-title')
     photo_stream = request.files.getlist('upload-pictures')
 

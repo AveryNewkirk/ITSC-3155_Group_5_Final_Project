@@ -3,7 +3,7 @@ import os, base64
 from dotenv import load_dotenv
 from .database import *
 from sqlalchemy import text
-from src.bcrypt_setup import init_bcrypt
+from app.bcrypt_setup import init_bcrypt
 from flask_bcrypt import Bcrypt
 from flask_uploads import  configure_uploads
 from .config import photos,TestingConfig

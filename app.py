@@ -1,4 +1,4 @@
-from src.main import create_app
+from app.main import create_app
 from flask_bcrypt import Bcrypt
 import os
 app = create_app()

@@ -1,7 +1,7 @@
 
 from flask import Blueprint, abort, render_template, request, redirect, session
 from ..database import db,bcrypt
-from src.models.pipeline import Users
+from app.models.pipeline import Users
 signup = Blueprint('signup', __name__)
 # bcrypt = Bcrypt(signup)
 # signup.secret_key = os.getenv()
@@ -30,7 +30,8 @@ def create():
     with a session should not be able to access the sign in page.
     """
     sesh_usr  = session.get('username') 
-    user = Users.get_by_username(username)
+    #user = Users.get_by_username(username)
+    user = Users.query.filter_by(username = username)
     print(username)
     print(user)
     if user is not None or sesh_usr is session.values(): # if the user exists redirect them to the login page

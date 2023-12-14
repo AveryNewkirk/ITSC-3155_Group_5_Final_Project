@@ -1,7 +1,7 @@
 from flask import Blueprint, render_template, request, redirect, url_for, abort, session
-from src.database import bcrypt
+from app.database import bcrypt
 
-from src.models.pipeline import Users
+from app.models.pipeline import Users
 login = Blueprint('login', __name__)
 
 
