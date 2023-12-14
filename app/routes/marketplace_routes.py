@@ -68,7 +68,7 @@ def marketplace_page():
     #handles if the user has clicked off the page and decided to return before the limit has been reached
     if username in session.values() and len(marketplace_data) < total_limit:
         generate_data()
-        return render_template('marketplace.html', marketplace_data = (marketplace_data))
+        return render_template('marketplace.html', marketplace_data = marketplace_data)
     
     #if the user returns to the page just serve them back the posts that they generated
     elif username in session.values() and len(marketplace_data) >= total_limit:

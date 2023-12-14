@@ -165,3 +165,4 @@ delete from users;
 delete from listings;
 delete from community_posts;
 delete from albums;
+select * from photos;
