@@ -1,7 +1,7 @@
 from flask import Blueprint, render_template, request,session,redirect,jsonify,url_for,abort
-from sqlalchemy import desc,func,exists
+from sqlalchemy import desc,func,exists,Operators
 import pickle
-from ..models.pipeline import *
+from src.models.pipeline import *
 from ..utils import upload_file
 
 
@@ -19,7 +19,7 @@ def generate_data():
     offset = (page_num - 1) * batch_limit
     page_num += 1    
     community_data = session.get('community_data')
-    
+    print(community_data)
     #check for problematic comunity data
     if community_data is None:
         print('problematic')
@@ -29,12 +29,14 @@ def generate_data():
     temp = (db.session.query(
         CommunityPost.post_content,
         CommunityPost.community_post_id,
-        Photo.photo_url
+        #changed url to id
+        Photo.photo_id
     )
     .join(Album, CommunityPost.album_id == Album.album_id)
     .join(Photo, Album.album_id == Photo.album_id)
     .order_by(desc(CommunityPost.community_post_id))
     .offset(offset).limit(batch_limit)
+    #changed all to any
     .all()
     )
     
@@ -282,7 +284,9 @@ def create_post():
 
     for photo in photo_stream:
         if photo and photo.filename:
+            #changes url to id
             photo_url = upload_file(photo)
+            #changes url to id
             if photo_url:
                 picture = Photo(album_id=album_id,photo_url=url_for('static',filename = f"user_images/{photo_url}"))
                 db.session.add(picture)
@@ -297,7 +301,7 @@ def create_post():
 
     #add the new post to the users session 
     data = session.get('community_data')
-
+    #changes url to id
     data.extend([(community_post.post_content, community_post.community_post_id, picture.photo_url)])
     session['community_data'] = sorted(data,reverse=True)
 
