@@ -371,6 +371,7 @@ body {
 .listing-card-row {
     display: flex;
     gap: var(--padding-sm);
+    justify-content: space-between;
 }
 
 .listing-card-lp-container {

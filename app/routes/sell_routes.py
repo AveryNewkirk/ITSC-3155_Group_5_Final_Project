@@ -1,18 +1,14 @@
-from crypt import methods
-from email import message
 from fileinput import filename
 from typing import Iterable
-from exceptiongroup import catch
-from flask import Blueprint, current_app, jsonify, render_template, request, redirect, url_for, session, flash
-from dotenv import load_dotenv
+from flask import Blueprint, current_app, jsonify, render_template, request, redirect, url_for, session
 import os
-from pydantic import InstanceOf
-from sqlalchemy import desc
-
 from ..models.pipeline import db, Users, Listing, Album, Photo
 from ..utils import upload_file
 from openai import OpenAI
 import base64
+import requests
+from werkzeug.utils import secure_filename
+from urllib.parse import urlparse, unquote
 
 # Constants and variables
 OPENAI_API_KEY = os.getenv('OPENAI_API_KEY')
@@ -64,6 +60,48 @@ def create_listing():
                 if photo_url:
                     photo = Photo(album_id=album_id, photo_url=photo_url)
                     db.session.add(photo)
+        db.session.commit()
+        
+        # Get model images and add to database
+        model_images = []
+        for i in range(1, 5):
+            image_field = f'model-image-url-{i}'
+            if image_field in request.form and request.form[image_field]:
+                print('SELL: request.form[image_field]: ')
+                print(request.form[image_field])
+                model_images.append(request.form[image_field])
+        
+        # TODO: remove this
+        for raw_image_url in model_images:
+            print('SELL: raw_image_url: ')
+            print(raw_image_url)
+                
+        # Download and save images
+        model_image_urls = []
+        for url in model_images:
+            response = requests.get(url)
+            print('SELL: response: ')
+            print(response)
+            if response.status_code == 200:
+                filename = url_to_filename(url)
+                print('SELL: filename: ')
+                print(filename)
+                filepath = os.path.join(current_app.root_path, 'static', 'user_images', filename)
+                print('SELL: filepath: ')
+                print(filepath)
+                with open(filepath, 'wb') as file:
+                    file.write(response.content)
+                model_image_urls.append(filename)
+        print('SELL: model_image_urls: ')
+        print(model_image_urls)
+                
+        # Create Photo objects and add to db
+        for image_url in model_image_urls:
+            if image_url:
+                photo = Photo(album_id=album_id, photo_url=image_url)
+                print('SELL: photo: ')
+                print(photo)
+                db.session.add(photo)
         db.session.commit()
         
         return redirect(url_for('sell.sell_success', listing_id=new_listing.listing_id))
@@ -146,11 +184,13 @@ def generate_pictures():
     print('GENERATE_PICTURES: concise_description: ')
     print(concise_description)
     
+    # TODO: fix image prompt
     image_prompt = '''
     You will be provided with a detailed summary of the physical attributes of a clothing item.
-    Using these attributes, you will generate a true-to-life photo of an appropriate human model 
-    wearing the clothing item while posing against an off-white backdrop. 
-    The photo must depict a full view of the entirety of the clothing item. \n
+    Using these attributes, create a true-to-life photo of an appropriate human model wearing 
+    the clothing item while he or she poses against an off-white backdrop. 
+    Clothing item MUST have ALL ATTRIBUTES as described by the provided physical attributes summary 
+    and be in full view within the length and width of the photo. \n
     Clothing item physical attributes summary: \n
     '''
     
@@ -169,19 +209,19 @@ def generate_pictures():
     )
     print('GENERATE_PICTURES: response_2 completed')
     
-    # TODO: populate imgs on webpage and add selected options to the db
-    
     image_url = response_2.data[0].url
     print('GENERATE_PICTURES: image_url: ')
     print(image_url)
+    revised_prompt = response_2.data[0].revised_prompt
+    print('GENERATE_PICTURES: revised_prompt: ')
+    print(revised_prompt)
     return jsonify({'image_url': image_url})
-
 
 # Alternative /generate_pictures route for testing
 # @sell.route('/generate_pictures', methods=['POST'])
 # def generate_pictures():
 #     image_url = 'https://art.pixilart.com/a4d7353d97dd6d4.png'
-#     return jsonify({'image_url': image_url})
+#     return jsonify({'image_url': image_url}) 
 
 @sell.route('/sell_success/<int:listing_id>')
 def sell_success(listing_id):
@@ -217,8 +257,8 @@ def generate_description(album_id):
         The attached image is a photograph of a single item of clothing. 
         Any additional attached images are additional photographs of the same item of clothing taken from various angles.
 
-        Your task is to create a highly detailed description of the clothing item shown in the photograph(s) that is no more than 150 words in length. 
-        The description should be extremely thorough and include any and all possible information about the clothing item, while also concise enough to be no longer than 150 words. 
+        Your task is to create a highly detailed description of the clothing item shown in the photograph(s) that is no more than 180 words in length. 
+        The description should be extremely thorough and include any and all possible information about the clothing item, while also concise enough to be no longer than 180 words. 
         At the very least, the description should describe each of the following attributes of the clothing item in comprehensive detail:
 
         List of clothing item attributes:
@@ -231,7 +271,7 @@ def generate_description(album_id):
         7. Pattern/Design: Any prints or patterns on the fabric, like stripes, floral, polka dots, abstract, etc.
         8. Detailing: Any features like embroidery, lace, buttons, zippers, pockets, ruffles, etc.
 
-        Take a minimal approach to sentence structure and cut out unnecessary words to stay within the 150-word length limit. 
+        Take a minimal approach to sentence structure and cut out unnecessary words to stay within the 180-word length limit. 
         Avoid simply listing out information and write in full sentences instead. 
         As you write, act as though the clothing item is right in front of you and do not acknowledge the existence of the image whatsoever. 
         Finally, write the description in the style of an online seller writing a description for a listing.
@@ -239,7 +279,7 @@ def generate_description(album_id):
     })
     
     # Adding images to content
-    album = Album.get_by_id(album_id)
+    album = Album.query.get(album_id)
     if isinstance(album, Album):
         photos = album.photos
         if isinstance(photos, Iterable):
@@ -267,3 +307,9 @@ def generate_description(album_id):
     
     print('REACHED: generate_description return')
     return response
+
+def url_to_filename(url: str):
+    parsed_url = urlparse(url)
+    path = parsed_url.path
+    filename = path.split('/')[-1]
+    return secure_filename(unquote(filename))

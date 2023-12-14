@@ -1,8 +1,11 @@
 document.addEventListener('DOMContentLoaded', function () {
     function updatePreview() {
-        const title = document.getElementById('listing-title').value;
-        const price = document.getElementById('price').value;
-        const description = document.getElementById('item-description').value;
+        let title = document.getElementById('listing-title').value;
+        let price = document.getElementById('price').value;
+        let description = document.getElementById('item-description').value;
+        if (description.length > 90) {
+            description = description.substring(0, 180);
+        }
 
         document.getElementById('listing-title-preview').textContent = title || 'Listing Title';
         document.getElementById('listing-price-preview').textContent = price ? `$${price}` : '$0.00';
@@ -145,3 +148,18 @@ function generateImages(description) {
 function toggleLoadingOverlay() {
     document.querySelector('.loading').classList.toggle('hidden')
 }
+
+function populatedSelectedImages() {
+    let checkboxes = document.querySelectorAll('.image-checkbox input[type="checkbox"]:checked');
+    let i = 1
+    checkboxes.forEach(checkbox => {
+        let image_url = checkbox.nextElementSibling.querySelector('.model-img').src;
+        let hidden_input_id = `model-image-url-${i++}`;
+        let hidden_input = document.getElementById(hidden_input_id)
+        hidden_input.value = image_url;
+    })
+}
+
+document.addEventListener('DOMContentLoaded', function () {
+    document.getElementById('sell-form').onsubmit = populatedSelectedImages;
+})

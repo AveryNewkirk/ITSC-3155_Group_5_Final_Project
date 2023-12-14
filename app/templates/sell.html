@@ -52,21 +52,24 @@
             <label for="price">Price</label>
             <input type="text" id="price" name="price" placeholder="$0.00" required>
 
+            <!-- Hidden inputs for album-id and generated photo URLs -->
             <input type="hidden" id="album-id" name="album-id">
+            <input type="hidden" name="model-image-url-1" id="model-image-url-1" value="">
+            <input type="hidden" name="model-image-url-2" id="model-image-url-2" value="">
+            <input type="hidden" name="model-image-url-3" id="model-image-url-3" value="">
+            <input type="hidden" name="model-image-url-4" id="model-image-url-4" value="">
             
             <button type="submit" class="button button-secondary">Post your item!</button>
         </form>
     </div>
     <div class="sell-preview-container">
-        <div id="preview-header">
-            Listing Preview
-        </div>
         <div class="listing-card">
             <div id="listing-image-preview" class="listing-image-preview empty"><img src="" alt="" id="listing-image-preview-img" class="hidden"></div>
             <div id="listing-title-preview" class="listing-title-preview">Listing Title</div>
             <div id="listing-price-preview" class="listing-price-preview">$0.00</div>
             <div id="listing-description-preview" class="listing-description-preview">Description preview... Lorem ipsum dolor sit amet consectetur adipisicing elit. Deleniti, sunt?</div>
         </div>
+        <div id="preview-header">Listing Preview</div>
     </div>
 </div>
 {% endblock %}
