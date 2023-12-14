@@ -1,0 +1,22 @@
+<div class="listing-card">
+    <div class="listing-card-image-container">
+        <img class="listing-card-image" src="{{ url_for('static', filename = 'user_images/' + listing.album.photos[-1].photo_url) }}">
+    </div>
+    <div class="listing-card-row">
+        <div class="listing-card-tp-container">
+            <div class="listing-card-title">{{ listing.title }}</div>
+            <div class="listing-card-price">${{ listing.price }}</div>
+        </div>
+        <div class="listing-card-lp-container">
+            <a href="{{ url_for('user.user_singleton_id', user_id=listing.user.user_id) }}" class="listing-card-pfp-container">
+                <!-- TODO: populate pfp with actual user pfp 
+                    will require creating user pfps as Photo instances with photo_url, 
+                    linking to folder in project 
+                -->
+                <img src="../static/images/default-profile.png" alt="" class="listing-card-pfp">
+            </a>
+            <span class="listing-card-likes">♡</span>
+        </div>
+    </div>
+    <div class="listing-card-description">{{ listing.description[:90] }}{% if listing.description|length > 80 %}...{% endif %}</div>
+</div>

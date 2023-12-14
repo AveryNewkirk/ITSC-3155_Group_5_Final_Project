@@ -1,0 +1,12 @@
+{% extends "template.html" %}
+
+{% block head %}
+{% endblock %}
+
+{% block content %}
+<div class="listings-container" style="display: flex; gap: 16px;">
+    {% for listing in listings %}
+        {% include 'listing_card.html' %}
+    {% endfor %}
+</div>
+{% endblock %}

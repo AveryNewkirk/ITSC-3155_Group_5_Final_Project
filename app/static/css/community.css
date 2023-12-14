@@ -1,0 +1,144 @@
+/* VARIABLES */
+:root {
+    /* Colors */
+    --primary-color: #C8553D;
+    --secondary-color-light: #588B8B;
+    --secondary-color-dark: #297373;
+    --dark-gray: #1A1A1A;
+    --medium-gray: #505050;
+    --light-gray: #b5b5b5;
+    --background-dark: #D9D9D9;
+    --background-light: #E6E6E6;
+    --background-white: #F8F8F8;
+
+    /* Measurements */
+    /* Font Size */
+    --font-sm: 0.75rem;
+    --font-mdsm: 0.9rem;
+    --font-mdlg: 1.2rem;
+    --fontlg: 1.5rem;
+    --fontxl: 2rem;
+    /* Radius */
+    --radius-sm: 8px;
+    --radius-md: 12px;
+    --radius-lg: 16px;
+    /* Margin */
+    --margin-xs: 6px;
+    --margin-sm: 12px;
+    --margin-mdsm: 18px;
+    --margin-md: 24px;
+    --margin-mdlg: 30px;
+    --margin-lg: 36px;
+    --margin-xl: 48px;
+    /* Padding */
+    --padding-xs: 2px;
+    --padding-sm: 4px;
+    --padding-mdsm: 6px;
+    --padding-md: 8px;
+    --padding-mdlg: 12px;
+    --padding-lg: 16px;
+    --padding-xl: 24px;
+}
+
+
+
+
+
+
+
+
+.img {
+    object-fit: cover;
+
+}
+
+
+
+.custom-container {
+    height: auto;
+    width: auto;
+}
+
+/*ripped from riley*/
+/*TODO ask for help to make look better*/
+.community-container {
+    display: flex;
+    background-color: var(--primary-color);
+    border-radius: var(--radius-sm);
+    padding: var(--padding-xs);
+    margin: var(--margin-xs);
+
+}
+
+
+
+
+.like-button {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+}
+
+#like-image {
+    width: 30px;
+    height: 30px;
+    margin-right: 5px;
+}
+
+
+.custom-button1 {
+
+    /* Set the desired background color */
+    background-color: var(--primary-color);
+    /* Replace with your preferred color code */
+
+
+    color: white;
+    border: none;
+    cursor: pointer;
+    padding: 5px 5px;
+
+
+    font-size: 15px;
+}
+
+
+
+.sticky {
+    position: fixed;
+    bottom: 25px;
+    right: 25px;
+
+
+}
+
+
+
+.custom-post-button {
+
+    padding: 50px 50px;
+    background-color: var(--dark-gray);
+    border: none;
+    border-radius: 50%;
+    width: 50px;
+    /* Adjust the width to your desired size */
+    height: 50px;
+    /* Adjust the height to your desired size */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    color: white;
+    /* Add text color as needed */
+    font-weight: bold;
+    /* Add font weight as needed */
+    text-decoration: none;
+    /* Add text decoration as needed */
+    box-shadow: 5px 5px 5px 0px rgba(0, 0, 0, 0.3);
+
+
+}
+
+.custom-post-button:hover {
+    background-color: #39393A;
+}

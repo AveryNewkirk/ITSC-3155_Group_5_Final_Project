@@ -1,0 +1,29 @@
+{% extends "template.html" %}
+
+{% block head %}
+<!-- <link rel="stylesheet" href="../static/css/<YOUR STYLESHEET HERE>"> -->
+<link rel="stylesheet" href="../static/css/login.css">
+{% endblock %}
+
+{%block content%}
+<h1>Welcome! Please log in below.</h1> 
+<div class="login">
+    <form action="/auth" method="post" class="default-form">
+        <div class="form-field">
+            <label for="email" class="form-label">Email</label>
+            <input type="email" name="email" placeholder="example@mail.com" class="form-text">
+        </div>
+        <div class="form-field">
+            <label for="password" class="form-label">Password</label>
+            <input type="password" name="password" placeholder="Enter password" class="form-text">
+        </div>
+        <button>Login</button>
+        <hr class="form-hr">
+        <span class="not-member">Not a member?</span>
+        <a href="/signup" id="sign-up">Sign Up!</a>
+    </form>
+</div>
+
+
+
+{%endblock content%}

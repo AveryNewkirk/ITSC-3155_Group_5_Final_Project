@@ -1,0 +1,37 @@
+<!-- PROFILE PAGE -->
+{% extends "template.html" %}
+
+{% block head %}
+<!-- <link rel="stylesheet" href="../static/css/<YOUR STYLESHEET HERE>"> -->
+{% endblock %}
+
+{% block content %}
+<head>
+    <link rel="stylesheet" type="text/css" href="../static/css/profile.css">
+</head>
+<main>
+    <div class="profile-layout">
+        <div class="profile-info">
+            <figure>
+                <!-- <img class="profile-image" src="../static/images/profileTemp.png" alt="Profile image"> -->
+                <a href="{{ url_for('main.render_profile')}}" class="profile-pfp-container">
+                    <img src="../static/images/default-profile.png" alt="User profile" id="profile-pfp-img">
+                </a>
+                <!-- TODO implement pull from server -->
+                <caption>username</caption> <!-- TODO implement pull from server -->
+            </figure>
+            <span>Bio</span>
+            <div class="profile-bio">
+                <p>This is my bio</p> <!-- TODO implement pull from server -->
+            </div>
+            <button class="button button-primary">Edit Profile</button> <!-- TODO implement push to server and refresh page-->
+        </div>
+        <form action="/logout" method="post">
+            <button type="submit">Logout</button>
+        </form>
+        <div class="profile-listings"> <!-- TODO implement pull from server page and scrollbar css-->
+            <h4>Your Listings</h4>
+        </div>
+    </div>
+</main>
+{% endblock %}
