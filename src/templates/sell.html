@@ -6,6 +6,8 @@
 {% endblock %}
 
 {% block content %}
+<!-- Loading overlay -->
+<div class="loading hidden">Loading...</div>
 <!-- Content container -->
 <div class="sell-container">
     <!-- Form container -->
@@ -13,44 +15,61 @@
         <!-- Form -->
         <form id="sell-form" action="/sell" method="post" enctype="multipart/form-data">
             <label for="listing-title">Title</label>
-            <input type="text" id="listing-title" name="listing-title" placeholder="Enter title...">
+            <input type="text" id="listing-title" name="listing-title" placeholder="Enter title..." required>
             
             <label for="upload-pictures">Pictures</label>
-            <input type="file" id="upload-pictures" name="upload-pictures" multiple>
+            <input type="file" id="upload-pictures" name="upload-pictures" multiple required>
             <div id="upload-pictures-container">
                 <label for="upload-pictures" id="upload-pictures-styled">+</label>
                 <div id="image-preview-container"></div>
             </div>
             
             <label for="item-description">Description</label>
-            <textarea id="item-description" name="item-description" placeholder="Describe your item..."></textarea>
-            <button type="button" id="generate-description" class="button button-secondary">Generate description from images</button>
+            <textarea id="item-description" name="item-description" placeholder="Describe your item..." required></textarea>
+            <button type="button" id="generate-description" class="button button-secondary">Generate Description</button>
             
             <label>Select Generated Model Pictures</label>
             <div class="generated-images">
-                <!-- Add JavaScript code to populate this section with images -->
-                <div class="image-placeholder">/</div>
-                <div class="image-placeholder">/</div>
-                <div class="image-placeholder">/</div>
-                <div class="image-placeholder">/</div>
+                <label class="image-checkbox">
+                    <input type="checkbox" name="model" id="model-1-checkbox">
+                    <div class="image-placeholder empty"></div>
+                </label>
+                <label class="image-checkbox">
+                    <input type="checkbox" name="model" id="model-2-checkbox">
+                    <div class="image-placeholder empty"></div>
+                </label>
+                <label class="image-checkbox">
+                    <input type="checkbox" name="model" id="model-3-checkbox">
+                    <div class="image-placeholder empty"></div>
+                </label>
+                <label class="image-checkbox">
+                    <input type="checkbox" name="model" id="model-4-checkbox">
+                    <div class="image-placeholder empty"></div>
+                </label>
             </div>
+            <button type="button" id="generate-images" class="button button-secondary">Generate Model</button>
 
             <label for="price">Price</label>
-            <input type="text" id="price" name="price" placeholder="$0.00">
+            <input type="text" id="price" name="price" placeholder="$0.00" required>
+
+            <!-- Hidden inputs for album-id and generated photo URLs -->
+            <input type="hidden" id="album-id" name="album-id">
+            <input type="hidden" name="model-image-url-1" id="model-image-url-1">
+            <input type="hidden" name="model-image-url-2" id="model-image-url-2">
+            <input type="hidden" name="model-image-url-3" id="model-image-url-3">
+            <input type="hidden" name="model-image-url-4" id="model-image-url-4">
             
             <button type="submit" class="button button-secondary">Post your item!</button>
         </form>
     </div>
     <div class="sell-preview-container">
         <div class="listing-card">
-            <div id="listing-image-preview" class="listing-image-preview"><img src="" alt="" id="listing-image-preview-img" class="hide"></div>
+            <div id="listing-image-preview" class="listing-image-preview empty"><img src="" alt="" id="listing-image-preview-img" class="hidden"></div>
             <div id="listing-title-preview" class="listing-title-preview">Listing Title</div>
             <div id="listing-price-preview" class="listing-price-preview">$0.00</div>
             <div id="listing-description-preview" class="listing-description-preview">Description preview... Lorem ipsum dolor sit amet consectetur adipisicing elit. Deleniti, sunt?</div>
         </div>
-        <div id="preview-header">
-            Preview
-        </div>
+        <div id="preview-header">Listing Preview</div>
     </div>
 </div>
 {% endblock %}
