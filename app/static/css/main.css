@@ -74,7 +74,7 @@ form.default-form label.form-label {
     font-size: var(--font-mdlg);
 }
 
-form.default-form input.form-text {
+form.default-form .form-text {
     border: none;
     border-radius: var(--radius-md);
     padding: var(--padding-sm) var(--padding-md);
@@ -358,6 +358,22 @@ body {
     padding: var(--padding-mdlg);
 }
 
+.buttons-container {
+    display: flex;
+    margin-top: var(--margin-sm);
+    gap: var(--margin-xs);
+    align-items: center;
+    justify-content: end;
+}
+
+.listing-button {
+    padding: var(--padding-mdsm);
+}
+
+.listing-icon {
+    width: 26px;
+}
+
 .listing-card-image-container {
     width: 240px;
     background-color: var(--secondary-color-dark);
@@ -387,16 +403,12 @@ body {
     align-items: center;
 }
 
-.listing-card-likes {
-    font-size: var(--fontlg);
-}
-
 .listing-card-pfp-container {
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 24px;
-    height: 24px;
+    width: 34px;
+    height: 34px;
     border-radius: 100%;
     background-color: var(--background-white);
     border: var(--secondary-color-dark) 1.5px solid;
@@ -405,6 +417,15 @@ body {
 
 .listing-card-pfp {
     width: 85%;
+}
+
+.like-icon {
+    width: 20px;
+}
+
+.like-button {
+    padding: var(--padding-sm) var(--padding-md);
+    margin-top: var(--margin-xs);
 }
 
 .listing-card-title {

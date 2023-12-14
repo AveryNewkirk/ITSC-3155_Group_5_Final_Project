@@ -1,4 +1,3 @@
-from crypt import methods
 from flask import Blueprint, render_template, session,redirect
 from ..models.pipeline import Users
 user = Blueprint('user', __name__)
