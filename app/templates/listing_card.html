@@ -1,6 +1,6 @@
 <div class="listing-card">
     <div class="listing-card-image-container">
-        <img class="listing-card-image" src="{{listing.album.photos[0].photo_url}}">
+        <img class="listing-card-image" src="{{ url_for('static', filename = 'user_images/' + listing.album.photos[0].photo_url) }}">
     </div>
     <div class="listing-card-row">
         <div class="listing-card-tp-container">
