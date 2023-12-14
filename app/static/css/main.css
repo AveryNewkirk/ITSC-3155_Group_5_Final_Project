@@ -275,13 +275,6 @@ body {
     text-decoration: underline;
 }
 
-#logout {
-    background-color: transparent;
-    color: var(--background-white);
-    padding: 0;
-    border: none;
-}
-
 /* MAIN CONTENT */
 .main-wrapper {
     grid-area: main;

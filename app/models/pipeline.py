@@ -60,7 +60,7 @@ class Users(db.Model):
         usr_instance = Users.query.filter_by(username=username).first()
         return usr_instance 
 
-    def get_username_by_id(user_id):
+    def get_username_by_id(user_id)-> str:
         usr_instance = Users.query.filter_by(user_id=user_id).first()
         if usr_instance:
             return usr_instance.get_username()
