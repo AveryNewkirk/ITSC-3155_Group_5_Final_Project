@@ -336,3 +336,10 @@ def delete_post(community_post_id):
     db.session.commit()
     return redirect('/community')
 
+
+
+# @community.route('/follow')
+# def follow_user():
+#     user_id = CommunityPost.user_id
+#     temp_user = Users.query.filter_by(user_id = user_id).first()
+#     return redirect('user.html')
