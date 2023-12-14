@@ -153,7 +153,7 @@ class Photo(db.Model):
     def __str__(self) -> str:
         return (f"photo_id: {self.photo_id}\n"
                 f"album_id: {self.album_id}\n"
-                f"photo_data: {self.photo_data}\n")
+                f"photo_data: {self.photo_url}\n")
 
 
 """

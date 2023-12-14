@@ -30,8 +30,10 @@ def create():
     with a session should not be able to access the sign in page.
     """
     sesh_usr  = session.get('username') 
-    user = Users.get_by_username(session['username'])
-    if user is not None or sesh_usr is not None: # if the user exists redirect them to the login page
+    user = Users.get_by_username(username)
+    print(username)
+    print(user)
+    if user is not None or sesh_usr is session.values(): # if the user exists redirect them to the login page
         return redirect('/login')
 
     if not username or not password or not email:
