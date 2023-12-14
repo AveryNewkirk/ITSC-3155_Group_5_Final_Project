@@ -195,6 +195,11 @@ body {
     color: var(--dark-gray);
 }
 
+.header-profile-container {
+    display: flex;
+    align-items: center;
+}
+
 .pfp-container {
     display: flex;
     align-items: center;
@@ -448,8 +453,7 @@ body {
     margin-top: var(--margin-xs);
 }
 
-.profile-button
-{
+.profile-button {
     position: absolute;
     top: 0;
     right: 0;
@@ -469,10 +473,7 @@ body {
 }
 
 .banner-user {
-    font-size: xx-large;
+    font-size: var(--fontxl);
     text-align: right;
-    color: var(--background-light);
-    margin-top: 3vh;
-    margin-left: auto;
-    margin-right: 2vw;
+    color: var(--dark-gray);
 }
