@@ -1,5 +1,5 @@
 from flask import Blueprint, render_template, request, redirect, url_for, abort, session
-
+from src.database import bcrypt
 
 from src.models.pipeline import Users
 login = Blueprint('login', __name__)
@@ -20,15 +20,13 @@ def display():
 def authUser():
     email = request.form.get('email')
     password = request.form.get('password')
+
     if not password or not email:
         abort(400)
     temp = Users.query.filter_by(email = email).first_or_404()
-    if temp.password == password: # type: ignore
-        session['user'] = {
-            'email' : temp.email,
-            'username' : temp.username,
-            'picture' : temp.profile_picture
-        }
+    if bcrypt.check_password_hash(password,temp.password):
+        session['email'] = temp.email
+        session['username'] = temp.username
         return redirect('/secret')
     else:
         abort(401)
