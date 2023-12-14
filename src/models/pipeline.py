@@ -56,7 +56,7 @@ class Users(db.Model):
         return self.public_access
     
     #simple lookup using query, returns none if not in db
-    def get_by_username(self,username):
+    def get_by_username(username):
         usr_instance = Users.query.filter_by(username= username).first()
         return usr_instance 
 

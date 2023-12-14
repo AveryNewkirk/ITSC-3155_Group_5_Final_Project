@@ -2,7 +2,7 @@ from typing import Self
 from flask import Blueprint, render_template, session,redirect
 from src.models.pipeline import Users, Listing
 user = Blueprint('user', __name__)
-temp_user
+
 
 @user.route('/user')
 def user_page():
