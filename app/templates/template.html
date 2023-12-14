@@ -38,8 +38,11 @@
                 <li><a href="/marketplace" class="nav-item nav-link h5">Marketplace</a></li>
                 <li><a href="/community" class="nav-item nav-link h5">Community</a></li>
                 <li><a href="/sell" class="nav-item nav-link h5">Sell</a></li>
-                <!-- TODO: Make Login option invisible while user is logged in -->
+                {% if 'username' not in session %}
                 <li><a href="/login" class="nav-item nav-link h5">Login</a></li>
+                {% else %}
+                <li><a href="/logout" class="nav-item nav-link h5"><form action="/logout" method="post"><button type="submit" id="logout">Logout</button></form></a></li>
+                {% endif %}
             </ul>
         </nav>
     </div>

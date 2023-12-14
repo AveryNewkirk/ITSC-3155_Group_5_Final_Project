@@ -17,6 +17,10 @@ document.addEventListener('DOMContentLoaded', function () {
     document.getElementById('item-description').addEventListener('input', updatePreview);
 
     document.getElementById('generate-description').addEventListener('click', function () {
+        if (document.getElementById('upload-pictures').files.length == 0) {
+            alert('Please upload an image first!')
+            throw new Error('No files uploaded')
+        }
         let album_id = document.getElementById('album-id').value;
         toggleLoadingOverlay()
         fetch('/generate_description', {
