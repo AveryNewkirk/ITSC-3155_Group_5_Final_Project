@@ -24,7 +24,7 @@
                             <img class="listing-card-image" src="{{item[2]}}">
                         </div>
                         <div class="listing-card-title"><a href="{{url_for('marketplace.listing_', listing_id=(item[1]|int), _method='POST')}}">{{ item[0] }}</a></div>
-                        <div class="listing-card-price">${{ item[1] }}</div>
+                        <div class="listing-card-price">${{ item[4] }}</div>
                         <div class="listing-card-description">{{ item[3] }}</div>
                     </div>
                     {% endfor %}
