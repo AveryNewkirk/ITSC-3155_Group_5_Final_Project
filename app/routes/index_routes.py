@@ -1,6 +1,4 @@
-from re import L
 from flask import Blueprint, redirect, render_template, request, session
-
 from app.models.pipeline import db, Listing
 from flask import abort
 
@@ -43,3 +41,5 @@ def edit_listing(listing_id):
         
         return render_template('sell_success.html', listing=listing, listing_id=listing_id)
     return render_template('edit_listing.html', listing_id=listing_id, listing=listing)
+  
+    return redirect('/')
