@@ -52,7 +52,7 @@ def generate_data():
     print(byte_length)
 
     #IMPORTANT update the session data
-    session['marketplace_data'] = sorted(list(set(marketplace_data)), reverse=True)
+    session['marketplace_data'] = list(set(marketplace_data))
 
     #return the batch when ONLY when below the limit
     return processed_temp
@@ -95,7 +95,7 @@ def more_posts():
         print("stop")
         return 'STOP'
     else:
-        temp = generate_data()
+        temp = list(set(generate_data()))
         return  jsonify ({'html': render_template('listings_batch.html', temp=temp)})
     
 

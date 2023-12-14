@@ -10,14 +10,14 @@
         {% for item in temp %}
         <div class="card community-container h-100" style="height: 200px; object-fit: cover;">
             <a href="#">
-                <img class="card-img img-fluid" src="{{item[2]}}" alt="Card image cap">
+                <img class="card-img img-fluid" src="{{item[4]}}" alt="Card image cap">
             </a>
             <div class="card-img-overlay">
 
                 <div class="card-block">
 
                     <a href="{{url_for('marketplace.listing_', listing_id=(item[1]|int), _method='POST')}}">
-                    <p class="card-text">{{ item[0] }}</p>
+                    <p class="card-text">{{ item[2] }}</p>
                     </a>
 
                 </div>
