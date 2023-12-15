@@ -8,7 +8,7 @@ from ..utils import upload_file
 community = Blueprint('community', __name__,template_folder='templates',static_folder='static')
 
 
-batch_limit = 9 #a multiple of 3 per batch is ideal since the community page will generate 3x3 grids at a time
+batch_limit = 6 #a multiple of 3 per batch is ideal since the community page will generate 3x3 grids at a time
 page_num = 1 #start at one for the page number then increment on each request
 total_limit = 36
 
