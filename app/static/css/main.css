@@ -1,4 +1,4 @@
-/* VARIABLES */
+/* VARIABLES
 :root {
     /* Colors */
     --primary-color: #C8553D;
@@ -279,6 +279,13 @@ body {
 .sidebar .nav-item.nav-link:hover {
     background-color: var(--secondary-color-dark);
     text-decoration: underline;
+}
+
+#logout {
+    background-color: transparent;
+    color: var(--background-white);
+    padding: 0;
+    border: none;
 }
 
 /* MAIN CONTENT */
