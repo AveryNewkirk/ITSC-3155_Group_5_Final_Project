@@ -9,8 +9,8 @@ index = Blueprint('index', __name__)
 @index.route('/')
 def home():
     if 'username' in session:
-    username = session['username']
-    return render_template('index.html', username=username)
+        username = session['username']
+        return render_template('index.html', username=username)
     return render_template('index.html')
 
 @index.post('/logout')
