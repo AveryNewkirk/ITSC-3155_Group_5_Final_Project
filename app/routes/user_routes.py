@@ -1,3 +1,4 @@
+#from crypt import methods
 from flask import Blueprint, render_template, session,redirect
 from ..models.pipeline import Users
 user = Blueprint('user', __name__)
@@ -19,3 +20,16 @@ def user_singleton(username):
         return redirect('/')
     
     return render_template('user.html',username=username)
+
+@user.route('/user/<int:user_id>', methods=['GET', 'POST'])
+def user_singleton_id(user_id):
+    user = Users.query.get(user_id)
+    username = None
+    if isinstance(user, Users):
+        username = user.username
+    else:
+        return redirect('/')
+    if username in session.values() and session['username'] == username:
+        return redirect('/profile')
+    return render_template('user.html', username=username)
+    

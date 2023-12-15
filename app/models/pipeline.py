@@ -60,7 +60,7 @@ class Users(db.Model):
         usr_instance = Users.query.filter_by(username=username).first()
         return usr_instance 
 
-    def get_username_by_id(user_id)-> str:
+    def get_username_by_id(user_id):
         usr_instance = Users.query.filter_by(user_id=user_id).first()
         if usr_instance:
             return usr_instance.get_username()
@@ -129,6 +129,9 @@ class Album(db.Model):
     def __init__(self, user_id: int, album_name: Optional[str] = None):
         self.user_id = user_id
         self.album_name = album_name
+        
+    def get_by_id(album_id: int):
+        return Album.query.get(album_id)
 
 
 
@@ -153,7 +156,7 @@ class Photo(db.Model):
     def __str__(self) -> str:
         return (f"photo_id: {self.photo_id}\n"
                 f"album_id: {self.album_id}\n"
-                f"photo_data: {self.photo_data}\n")
+                f"photo_data: {self.photo_url}\n")
 
 
 """

@@ -1,21 +1,22 @@
-<!-- CSS for listing card is defined in ~/app/static/css/main.css -->
-<!-- IMPORTANT: Any route that directly or indirectly includes this template must
-    send a Listing object in order for the Jinja variables to properly populate 
-
-    EXAMPLE:
-
-    @app.route('/<int:listing_id>')
-    def index(listing_id):
-        listing = Listing.query.get(listing_id)
-        return render_template('index.html', listing=listing)
-
--->
-
 <div class="listing-card">
     <div class="listing-card-image-container">
-        <img class="listing-card-image" src="{{ url_for('static', filename = 'user_images/' + listing.album.photos[0].photo_url) }}">
+        <img class="listing-card-image" src="{{ url_for('static', filename = 'user_images/' + listing.album.photos[-1].photo_url) }}">
     </div>
-    <div class="listing-card-title">{{ listing.title }}</div>
-    <div class="listing-card-price">${{ listing.price }}</div>
-    <div class="listing-card-description">{{ listing.description }}</div>
+    <div class="listing-card-row">
+        <div class="listing-card-tp-container">
+            <div class="listing-card-title">{{ listing.title }}</div>
+            <div class="listing-card-price">${{ listing.price }}</div>
+        </div>
+        <div class="listing-card-lp-container">
+            <a href="{{ url_for('user.user_singleton_id', user_id=listing.user.user_id) }}" class="listing-card-pfp-container">
+                <!-- TODO: populate pfp with actual user pfp 
+                    will require creating user pfps as Photo instances with photo_url, 
+                    linking to folder in project 
+                -->
+                <img src="../static/images/default-profile.png" alt="" class="listing-card-pfp">
+            </a>
+            <span class="listing-card-likes">♡</span>
+        </div>
+    </div>
+    <div class="listing-card-description">{{ listing.description[:90] }}{% if listing.description|length > 80 %}...{% endif %}</div>
 </div>

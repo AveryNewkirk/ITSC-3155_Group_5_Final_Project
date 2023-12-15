@@ -4,14 +4,12 @@
     --primary-color: #C8553D;
     --secondary-color-light: #588B8B;
     --secondary-color-dark: #297373;
-    --text-dark: #1A1A1A;
-    --text-medium: #505050;
-    --text-light: #E6E6E6;
-    --background-white: #F9F9F9;
-    --background-gray-light: #E6E6E6;
-    --background-gray-dark: #D9D9D9;
-    --button-Tangerine: #F28F3B;
-    --button-Jet: #39393A;
+    --dark-gray: #1A1A1A;
+    --medium-gray: #505050;
+    --light-gray: #b5b5b5;
+    --background-dark: #D9D9D9;
+    --background-light: #E6E6E6;
+    --background-white: #F8F8F8;
 
     /* Measurements */
     /* Font Size */
@@ -49,7 +47,7 @@
 
 
 
-.img{
+.img {
     object-fit: cover;
 
 }
@@ -91,7 +89,7 @@
 .custom-button1 {
 
     /* Set the desired background color */
-    background-color: var(--button-Tangerine);
+    background-color: var(--primary-color);
     /* Replace with your preferred color code */
 
 
@@ -106,37 +104,42 @@
 
 
 
-.sticky{
-    position: fixed; 
-    bottom: 25px; 
-    right:25px;
+.sticky {
+    position: fixed;
+    bottom: 25px;
+    right: 25px;
 
 
 }
 
 
 
-.custom-post-button{
+.custom-post-button {
 
     padding: 50px 50px;
-    background-color: var(--button-Jet);
+    background-color: var(--dark-gray);
     border: none;
     border-radius: 50%;
-    width: 50px; /* Adjust the width to your desired size */
-    height: 50px; /* Adjust the height to your desired size */
+    width: 50px;
+    /* Adjust the width to your desired size */
+    height: 50px;
+    /* Adjust the height to your desired size */
     display: flex;
     align-items: center;
     justify-content: center;
     text-align: center;
-    color: white; /* Add text color as needed */
-    font-weight: bold; /* Add font weight as needed */
-    text-decoration: none; /* Add text decoration as needed */
-    box-shadow: 5px 5px 5px 0px rgba(0,0,0,0.3);
+    color: white;
+    /* Add text color as needed */
+    font-weight: bold;
+    /* Add font weight as needed */
+    text-decoration: none;
+    /* Add text decoration as needed */
+    box-shadow: 5px 5px 5px 0px rgba(0, 0, 0, 0.3);
 
 
 }
 
-.custom-post-button:hover{
+.custom-post-button:hover {
     background-color: #39393A;
 }
 
