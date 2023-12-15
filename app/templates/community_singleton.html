@@ -29,6 +29,11 @@
 </div>  
 
 <div>
+<form action="{{url_for('user.user_singleton', username=owner_username, _method='POST')}}">
+    <button class = "custom-button2 "id = "custom-button2">{{owner_username}}'s page</button>
+</form>
+</div class = "mb-2">
+<div>
     {% if owner == true %}
     <form action="{{url_for('community.delete_post', community_post_id=community_post_id|int, _method='POST')}}">
         <div class="mt-3 text-secondary">

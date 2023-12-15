@@ -142,3 +142,21 @@
 .custom-post-button:hover {
     background-color: #39393A;
 }
+
+
+.custom-button2 {
+
+    /* Set the desired background color */
+    background-color: var(--button-Jet);
+    /* Replace with your preferred color code */
+
+
+    color: white;
+    border: none;
+    cursor: pointer;
+    padding: 5px 5px;
+
+
+
+    font-size: 14px;
+}

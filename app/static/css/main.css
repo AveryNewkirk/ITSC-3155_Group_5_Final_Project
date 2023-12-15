@@ -195,6 +195,11 @@ body {
     color: var(--dark-gray);
 }
 
+.header-profile-container {
+    display: flex;
+    align-items: center;
+}
+
 .pfp-container {
     display: flex;
     align-items: center;
@@ -209,6 +214,13 @@ body {
 
 #pfp-img {
     width: 85%;
+}
+
+#custom-pfp-img {
+    width: 95%;
+    height: 95%;
+    object-fit: cover;
+    border-radius: 50%;
 }
 
 #custom-pfp-img {

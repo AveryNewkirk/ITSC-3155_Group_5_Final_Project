@@ -72,9 +72,6 @@ class Users(db.Model):
         else:
             return None
         
-    def get_profile_by_username(username):
-        pass
-        
     ##test code to see if user is created
     def __str__(self) -> str:
         return (f"user_id: {self.user_id}\n"

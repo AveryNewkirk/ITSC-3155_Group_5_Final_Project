@@ -8,6 +8,7 @@
     --medium-gray: #505050;
     --light-gray: #b5b5b5;
     --background-dark: #d1d1d1;
+    --background-dark: #d1d1d1;
     --background-light: #E6E6E6;
     --background-white: #F8F8F8;
 
@@ -46,16 +47,23 @@
     background-color: var(--background-dark);
     padding: 30px;
     border-radius: 12px;
+    font-size: var(--font-mdlg);
+    background-color: var(--background-dark);
+    padding: 30px;
+    border-radius: 12px;
     display: flex;
     text-align: center;
     justify-content: space-between;
+    align-items: stretch;
     align-items: stretch;
     gap: var(--margin-md);
     height: 80vh;
 }
 
 
+
 .profile-info {
+    position: relative;
     position: relative;
     flex-direction: column;
     align-items: center;
@@ -66,15 +74,18 @@
     background-color: var(--background-light);
     display: flex;
 }
+ 
 
 .profile-pfp-container {
+    margin-top: 5vh;
     margin-top: 5vh;
     display: flex;
     align-items: center;
     justify-content: center;
     width: 150px;
     height: 150px;
-    border-radius: 50%; /* Adjusted border-radius for a perfect circle */
+    border-radius: 50%;
+    /* Adjusted border-radius for a perfect circle */
     background-color: var(--background-white);
     border: var(--secondary-color-dark) 4px solid;
     padding: 3px;
@@ -89,7 +100,7 @@
 .edit-profile-button {
     position: absolute;
     right: 15px;
-    font-size:16px;
+    font-size: 16px;
 }
 
 .edit-profile-button:hover {
@@ -105,6 +116,7 @@
     text-align: center;
     background-color: var(--secondary-color-dark);
 }
+
 .logout-button {
     margin-top: 5vh;
     background-color: var(--secondary-color-dark);
@@ -121,17 +133,16 @@
     flex-direction: column;
     align-items: center;
 }
-.settings-link
-{
-    position:absolute;
+
+.settings-link {
+    position: absolute;
     bottom: 10px;
 }
 
-figcaption
-{
+figcaption {
     min-width: 10vw;
     padding: 2px 15px 2px 15px;
-    margin-top:5px;
+    margin-top: 5px;
     background-color: var(--background-dark);
     border-radius: var(--radius-lg);
 
@@ -142,4 +153,37 @@ figcaption
     height: 100%;
     object-fit: cover;
     border-radius: 50%;
+}
+
+.profile-listings {
+    max-height: 400px;
+    overflow: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Center items horizontally */
+}
+
+.profile-listings::-webkit-scrollbar {
+    width: 0;
+}
+
+.profile-listings h4 {
+    margin-bottom: 10px;
+}
+
+.listing {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.listing-item {
+    width: calc(50% - 10px); 
+    box-sizing: border-box;
+    border: 1px solid #ccc;
+    padding: 10px;
+}
+
+.listing-card {
+    margin-top: 4vh;
 }

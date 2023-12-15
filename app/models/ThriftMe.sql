@@ -160,3 +160,6 @@ VALUES
     ('real_person', 'password1', 'user1@example.com', E'\\x89504e470d0a1a0a', true), -- Hexadecimal representation of a profile picture
     ('real_shopper', 'password2', 'user2@example.com', E'\\x89504e470d0a1a0a', true),
     ('real_person_community', 'password3', 'user3@example.com', E'\\x89504e470d0a1a0a', true);
+
+
+select * from users;
