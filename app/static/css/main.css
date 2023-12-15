@@ -74,7 +74,7 @@ form.default-form label.form-label {
     font-size: var(--font-mdlg);
 }
 
-form.default-form input.form-text {
+form.default-form .form-text {
     border: none;
     border-radius: var(--radius-md);
     padding: var(--padding-sm) var(--padding-md);
@@ -195,6 +195,11 @@ body {
     color: var(--dark-gray);
 }
 
+.header-profile-container {
+    display: flex;
+    align-items: center;
+}
+
 .pfp-container {
     display: flex;
     align-items: center;
@@ -205,11 +210,24 @@ body {
     background-color: var(--background-white);
     border: var(--secondary-color-dark) 3px solid;
     margin-right: var(--padding-md);
-    padding-bottom: 3px;
 }
 
 #pfp-img {
     width: 85%;
+}
+
+#custom-pfp-img {
+    width: 95%;
+    height: 95%;
+    object-fit: cover;
+    border-radius: 50%;
+}
+
+#custom-pfp-img {
+    width: 95%;
+    height: 95%;
+    object-fit: cover;
+    border-radius: 50%;
 }
 
 /* SIDEBAR */
@@ -358,6 +376,22 @@ body {
     padding: var(--padding-mdlg);
 }
 
+.buttons-container {
+    display: flex;
+    margin-top: var(--margin-sm);
+    gap: var(--margin-xs);
+    align-items: center;
+    justify-content: end;
+}
+
+.listing-button {
+    padding: var(--padding-mdsm);
+}
+
+.listing-icon {
+    width: 26px;
+}
+
 .listing-card-image-container {
     width: 240px;
     background-color: var(--secondary-color-dark);
@@ -387,16 +421,12 @@ body {
     align-items: center;
 }
 
-.listing-card-likes {
-    font-size: var(--fontlg);
-}
-
 .listing-card-pfp-container {
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 24px;
-    height: 24px;
+    width: 34px;
+    height: 34px;
     border-radius: 100%;
     background-color: var(--background-white);
     border: var(--secondary-color-dark) 1.5px solid;
@@ -405,6 +435,15 @@ body {
 
 .listing-card-pfp {
     width: 85%;
+}
+
+.like-icon {
+    width: 20px;
+}
+
+.like-button {
+    padding: var(--padding-sm) var(--padding-md);
+    margin-top: var(--margin-xs);
 }
 
 .listing-card-title {
@@ -421,9 +460,27 @@ body {
     margin-top: var(--margin-xs);
 }
 
+.profile-button {
+    position: absolute;
+    top: 0;
+    right: 0;
+    margin: 10px;
+    background-color: var(--background-gray-dark);
+    height: 60px;
+    width: 60px;
+    border-radius: 50%;
+    padding: 8px;
+}
+
 .link {
     font-size: 1rem;
     background-color: var(--background-light);
     border-radius: var(--radius-md);
     padding: 1px var(--padding-md);
+}
+
+.banner-user {
+    font-size: var(--fontxl);
+    text-align: right;
+    color: var(--dark-gray);
 }

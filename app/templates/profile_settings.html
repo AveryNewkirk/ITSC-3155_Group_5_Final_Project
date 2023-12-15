@@ -1,0 +1,106 @@
+<!-- SETTINGS PAGE -->
+{% extends "template.html" %}
+
+{% block head %}
+
+<head>
+    <style>
+        .heading {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        form {
+            margin-left: 1vw;
+            max-width: 20vw;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 1.2rem;
+        }
+
+        input[type="text"],
+        input[type="file"] {
+            width: 100%;
+            padding: 0.4rem;
+            margin-bottom: 1.5rem;
+        }
+
+        input[type="submit"] {
+            background-color: #F28F3B;
+            color: #fff;
+            padding: .5rem;
+            padding-left: .8rem;
+            padding-right: .8rem;
+            border: none;
+            border-radius: 1.2rem;
+            cursor: pointer;
+            transition: background-color 0.2s ease;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #39393A;
+        }
+
+        .forms {
+            padding: 12px;
+            display: flex;
+        }
+
+        .forms form input[type="submit"] {
+            width: auto;
+            align-self: flex-end;
+        }
+        
+    </style>
+    <script>
+        function validateForm() {
+            var fileInput = document.getElementById('image');
+            if (fileInput.files.length === 0) {
+                alert('Please select a file before submitting.');
+                return false;
+            }
+
+            var fileName = fileInput.files[0].name;
+            if (!fileName.toLowerCase().endsWith('.jpg')) {
+                playInvalidSound(); // Call the function to play the sound
+                alert('Please upload a JPG file.');
+                return false;
+            }
+
+            return true;
+        }
+
+        function playInvalidSound() {
+            var audio = new Audio('path/to/invalid_sound.mp3'); // Provide the path to your sound file
+            audio.play();
+        }
+    </script>
+</head>
+{% endblock %}
+
+{% block content %}
+<div class="forms card rounded mr-2 bg-light">
+    <h1 class="heading">Profile Settings</h1>
+    <form action="/edit_username" method="post">
+        <h4>Current Username: <strong>{{username}}</strong></h4>
+        <br>
+        <label for="newUsername">
+            <h5>New Username:</h5>
+        </label>
+        <input type="text" name="newUsername" id="newUsername" required>
+        <input type="submit" value="Update Username">
+    </form>
+    <br>
+    <form id="profileForm" action="/edit_profile_pic" method="post" enctype="multipart/form-data"
+        onsubmit="return validateForm()">
+        <label for="image">
+            <h5>New Profile Image (JPG only):</h5>
+        </label>
+        <input type="file" name="image" id="image" accept=".jpg" required>
+        <br>
+        <input type="submit" value="Update Profile Picture">
+    </form>
+</div>
+{% endblock %}

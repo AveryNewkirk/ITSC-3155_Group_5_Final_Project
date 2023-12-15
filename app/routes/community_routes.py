@@ -66,7 +66,7 @@ def community_page():
     #handles if the user has clicked off the page and decided to return before the limit has been reached
     if username in session.values() and len(community_data) < total_limit:
         generate_data()
-        return render_template('community.html', community_data = (community_data))
+        return render_template('community.html', community_data = community_data)
     
     #if the user returns to the page just serve them back the posts that they generated
     elif username in session.values() and len(community_data) >= total_limit:
@@ -93,9 +93,8 @@ def more_posts():
         print("stop")
         return 'STOP'
     else:
-        temp = sorted(generate_data(), reverse=True)
-        return  jsonify ({'html': render_template('community_posts_batch.html', temp=temp)})
-    
+        temp = generate_data()
+        return jsonify({'html': render_template('community_posts_batch.html', temp=temp)})    
 
 #Get a single instance of a community post
 #TODO add design elements

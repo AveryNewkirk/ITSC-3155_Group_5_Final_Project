@@ -15,8 +15,18 @@
                 -->
                 <img src="../static/images/default-profile.png" alt="" class="listing-card-pfp">
             </a>
-            <span class="listing-card-likes">♡</span>
+            <button class="like-button button button-secondary"><img src="../static/images/like.png" alt="Like Button" class="like-icon"></button>
         </div>
     </div>
     <div class="listing-card-description">{{ listing.description[:90] }}{% if listing.description|length > 80 %}...{% endif %}</div>
+    {% if listing.user.username == session['username'] %}
+    <div class="buttons-container">
+        <form action="{{ url_for('index.edit_listing', listing_id = listing.listing_id) }}" method="GET">
+            <button class="listing-button button button-secondary"><img src="../static/images/edit.png" alt="Edit Button" class="listing-icon"></button>
+        </form>
+        <form action="{{ url_for('index.delete_listing', listing_id = listing.listing_id) }}" method="POST" class="delete-form">
+            <button class="listing-button button button-secondary"><img src="../static/images/delete.png" alt="Delete Button" class="listing-icon"></button>
+        </form>
+    </div>
+    {% endif %}
 </div>

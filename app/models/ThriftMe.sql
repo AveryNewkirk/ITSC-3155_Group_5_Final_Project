@@ -6,9 +6,12 @@ CREATE TABLE users (
     username VARCHAR(50) NOT NULL,
     password VARCHAR(255) NOT NULL,
     email VARCHAR(100) NOT NULL,
-    profile_picture BYTEA,
+    profile_picture TEXT,
     public_access BOOLEAN NOT NULL
 );
+
+alter table Users alter column profile_picture type text
+-- RUN THIS TO CHANGE TABLE ON LOCAL
 
 --Stores photos for posts
 --allows different types of posts to have more than 1 photo

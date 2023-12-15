@@ -1,8 +1,49 @@
 {% extends "template.html" %}
 
 {% block head %}
-<!-- <link rel="stylesheet" href="../static/css/<YOUR STYLESHEET HERE>"> -->
-{% endblock %}
 
+<script src="https://cdn.jsdelivr.net/npm/masonry-layout@4.2.2/dist/masonry.pkgd.min.js" integrity="sha384-GNFwBvfVxBkLMJpYMOABq3c+d3KnQxudP/mGPkzpZSTYykLBNsZEnG2D9G/X/+7D" crossorigin="anonymous" async></script>
+
+<!-- above is the masonry cdn for bootstrap, it will make the marketplace page look like an instagram explore page and also responsive-->
+<link rel="stylesheet" href="/static/css/community.css">
+{% endblock %}
 {% block content %}
+
+<h2>
+    Marketplace
+</h2>
+
+<hr class = "border border-muted border-1 opacity-75">
+<div class="span">
+    <div class="custom-container ml-2">
+        <div>
+            <div>
+                    {% for item in marketplace_data %}
+                    <div class="listing-card" style="display: inline-block; width: 33%;">
+                        <div class="listing-card-image-container" style="width: 100%; text-align: center;">
+                            <img class="listing-card-image" src="{{item[4]}}">
+                        </div>
+                        <div class="listing-card-title"><a href="{{url_for('marketplace.listing_', listing_id=(item[1]|int), _method='POST')}}">{{ item[0] }}</a></div>
+                        <div class="listing-card-price">${{ item[3] }}</div>
+                        <div class="listing-card-description">{{ item[2] }}</div>
+                    </div>
+                    {% endfor %}
+            </div>
+        </div>
+        <form action="/new_listing" method = "POST">
+            <div class="sticky">
+                <button class="custom-post-button" name="button"type="submit">+</button>
+            </div>
+        </form>
+    </div>
+    
+</div>
+    
+    
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+
+<script src ="static/scripts/infScroll.js"></script>
+    
+
+
 {% endblock %}

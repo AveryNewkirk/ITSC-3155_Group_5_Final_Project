@@ -41,8 +41,10 @@ def create():
 
     ##adding user session upon creation of a new user
     community_data = []
+    marketplace_data = []
     session['username'] = username
     session['community_data'] = community_data
+    session['marketplace_data'] = marketplace_data
     db.session.add(new_user)
     db.session.commit()
     print(f"\n{username}\n{email}\n\n")

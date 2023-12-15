@@ -7,7 +7,8 @@
     --dark-gray: #1A1A1A;
     --medium-gray: #505050;
     --light-gray: #b5b5b5;
-    --background-dark: #D9D9D9;
+    --background-dark: #d1d1d1;
+    --background-dark: #d1d1d1;
     --background-light: #E6E6E6;
     --background-white: #F8F8F8;
 
@@ -41,83 +42,69 @@
 }
 
 /* PROFILE PAGE */
-
 .profile-layout {
+    font-size: var(--font-mdlg);
+    background-color: var(--background-dark);
+    padding: 30px;
+    border-radius: 12px;
+    font-size: var(--font-mdlg);
+    background-color: var(--background-dark);
+    padding: 30px;
+    border-radius: 12px;
     display: flex;
     text-align: center;
     justify-content: space-between;
-    align-items: start;
+    align-items: stretch;
+    align-items: stretch;
     gap: var(--margin-md);
     height: 80vh;
 }
 
+
+
 .profile-info {
-    display: flex;
+    position: relative;
+    position: relative;
     flex-direction: column;
     align-items: center;
     gap: var(--margin-sm);
-    min-height: 100%;
     width: 35%;
     padding: var(--padding-lg);
     border-radius: var(--radius-lg);
     background-color: var(--background-light);
+    display: flex;
 }
-
-/* .profile-image {
-    background-color: var(--background-dark);
-    height: 120px;
-    width: 120px; */
-/*Adjust values when implementing dynamic html*/
-/* border-radius: 50%;
-    padding: 8px;
-} */
+ 
 
 .profile-pfp-container {
+    margin-top: 5vh;
+    margin-top: 5vh;
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 120px;
-    height: 120px;
-    border-radius: 100%;
-    background-color: var(--background-light);
-    border: var(--secondary-color-dark) 3px solid;
-    padding-bottom: 3px;
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    /* Adjusted border-radius for a perfect circle */
+    background-color: var(--background-white);
+    border: var(--secondary-color-dark) 4px solid;
+    padding: 3px;
+    margin-bottom: 5px;
 }
 
 #profile-pfp-img {
-    width: 85%;
-}
-
-.profile-bio {
-    display: flex;
     width: 100%;
-    text-align: center;
-    justify-content: center;
-    height: 30vh;
-    padding: var(--padding-md);
-    background-color: white;
-    border-radius: var(--radius-md);
 }
 
-.profile-bio p {
-    text-align: left;
-}
 
 .edit-profile-button {
-    padding: 10px;
-    background-color: #C8553D;
-    /* Updated background color */
-    color: #fff;
-    /* White text color */
-    border: none;
-    border-radius: 12px;
-    /* Rounded edges */
-    cursor: pointer;
+    position: absolute;
+    right: 15px;
+    font-size: 16px;
 }
 
 .edit-profile-button:hover {
     background-color: #A54A33;
-    /* Updated background color on hover */
 }
 
 .profile-listings {
@@ -128,4 +115,78 @@
     color: white;
     text-align: center;
     background-color: var(--secondary-color-dark);
+}
+
+.logout-button {
+    margin-top: 5vh;
+    background-color: var(--secondary-color-dark);
+    color: var(--background-white);
+    transition: background-color 0.2s ease;
+}
+
+.logout-button:hover {
+    background-color: darkred;
+}
+
+.profile-info figure {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.settings-link {
+    position: absolute;
+    bottom: 10px;
+}
+
+figcaption {
+    min-width: 10vw;
+    padding: 2px 15px 2px 15px;
+    margin-top: 5px;
+    background-color: var(--background-dark);
+    border-radius: var(--radius-lg);
+
+}
+
+#profile-custom {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 50%;
+}
+
+.profile-listings {
+    max-height: 400px;
+    overflow: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Center items horizontally */
+}
+
+.profile-listings::-webkit-scrollbar {
+    width: 0;
+}
+
+.profile-listings h4 {
+    margin-bottom: 10px;
+}
+
+.listing {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.listing-item {
+    width: calc(50% - 10px); 
+    box-sizing: border-box;
+    border: 1px solid #ccc;
+    padding: 10px;
+}
+
+.listing-card {
+    background-color: #f5f5f5;
+    color:black;
+    margin-top: 4vh;
+    filter: drop-shadow(0 0.75rem 0.5rem black);
 }

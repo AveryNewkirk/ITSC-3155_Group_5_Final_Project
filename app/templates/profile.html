@@ -2,32 +2,41 @@
 {% extends "template.html" %}
 
 {% block head %}
-<!-- <link rel="stylesheet" href="../static/css/<YOUR STYLESHEET HERE>"> -->
+<script src="https://cdn.jsdelivr.net/npm/masonry-layout@4.2.2/dist/masonry.pkgd.min.js"
+    integrity="sha384-GNFwBvfVxBkLMJpYMOABq3c+d3KnQxudP/mGPkzpZSTYykLBNsZEnG2D9G/X/+7D" crossorigin="anonymous"
+    async></script>
+<link rel="stylesheet" type="text/css" href="../static/css/profile.css">
 {% endblock %}
 
 {% block content %}
-<head>
-    <link rel="stylesheet" type="text/css" href="../static/css/profile.css">
-</head>
+
 <main>
     <div class="profile-layout">
         <div class="profile-info">
+            <a href="/edit_profile"><button class="edit-profile-button button button-primary">Edit Profile</button></a>
             <figure>
-                <!-- <img class="profile-image" src="../static/images/profileTemp.png" alt="Profile image"> -->
-                <a href="{{ url_for('main.render_profile')}}" class="profile-pfp-container">
+                {% if session['profile_picture'] %}
+                <div class="profile-pfp-container">
+                    <img src="{{session['profile_picture']}}" alt="User profile" id="profile-custom">
+                </div>
+                {%else%}
+                <div class="profile-pfp-container">
                     <img src="../static/images/default-profile.png" alt="User profile" id="profile-pfp-img">
-                </a>
-                <!-- TODO implement pull from server -->
-                <caption>username</caption> <!-- TODO implement pull from server -->
+                </div>
+                {% endif %}
+                <figcaption><strong>{{username}}</strong></figcaption>
             </figure>
-            <span>Bio</span>
-            <div class="profile-bio">
-                <p>This is my bio</p> <!-- TODO implement pull from server -->
-            </div>
-            <button class="button button-primary">Edit Profile</button> <!-- TODO implement push to server and refresh page-->
+            <!-- TODO if goated: add button to display followers/following -->
+            <a href="/logout"><button class="logout-button">Logout</button></a>
+            <a class="settings-link" href="/settings">Settings</a>
         </div>
         <div class="profile-listings"> <!-- TODO implement pull from server page and scrollbar css-->
             <h4>Your Listings</h4>
+            <div>
+                {% for listing in listings %}
+                {% include 'listing_card.html' %}
+                {% endfor %}
+            </div>
         </div>
     </div>
 </main>
