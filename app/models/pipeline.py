@@ -6,7 +6,6 @@ from ..database import db
 import random,binascii,os
 from datetime import datetime
 from dataclasses import dataclass
-from sqlalchemy import func
 #TODO make classes for the other tables
 
 
@@ -24,7 +23,7 @@ class Users(db.Model):
     username = db.Column(db.String(50), nullable=False)
     password = db.Column(db.String(255), nullable=False)
     email = db.Column(db.String(100), nullable=False)
-    profile_picture = db.Column(db.LargeBinary)
+    profile_picture = db.Column(db.Text)
     public_access = db.Column(db.Boolean, nullable=False)
 
     
@@ -34,10 +33,10 @@ class Users(db.Model):
     #     self.email = email
     #     self.password = password
     #     self.public_access = True
-    #     #can omit later since there is no logic to create a username or uplad profile picture right now
+    #     #can omit later since there is no logic to create a username or upload profile picture right now
     #     self.username = ''.join(random.choices('abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789', k=random.randint(5,20)))
     #     self.profile_picture = binascii.b2a_base64(os.urandom(17))
-    
+
 
     
     def __init__(self,username,email,pw_hash):
@@ -49,11 +48,17 @@ class Users(db.Model):
     def get_username(self):
         return self.username
     
+    def get_username_session():
+        return db.session.query(Users.username)
+
     def get_id(self):
         return self.user_id
     
     def get_access(self):
         return self.public_access
+    
+    def get_listings(self):
+        return Listing.query.filter_by(user_id=self.user_id).all()
     
     #simple lookup using query, returns none if not in db
     def get_by_username(username):
@@ -66,7 +71,10 @@ class Users(db.Model):
             return usr_instance.get_username()
         else:
             return None
-    
+        
+    def get_profile_by_username(username):
+        pass
+        
     ##test code to see if user is created
     def __str__(self) -> str:
         return (f"user_id: {self.user_id}\n"
@@ -302,7 +310,7 @@ class CommunityPostComment(db.Model):
                 f"comment owner: {Users.get_username_by_id(self.user_id)}\n")
             
 
-#--------------------------------------------------------
+#I don't like these
 community_post_likes = db.Table(
     'community_post_likes', 
    db.Column('user_id',db.Integer, db.ForeignKey('users.user_id', ondelete='CASCADE'), primary_key=True),

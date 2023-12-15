@@ -1,0 +1,25 @@
+{% extends "template.html" %}
+
+{% block head %}
+{% endblock %}
+
+{% block content %}
+<form action="{{ url_for('index.edit_listing', listing_id=listing.listing_id)}}" class="default-form" method="POST">
+    <div class="form-field">
+        <label for="edit-title" class="form-label">Change Title</label>
+        <input type="text" id="edit-title" name="edit-title" class="form-text" placeholder="{{ listing.title }}">
+    </div>
+    
+    <div class="form-field">
+        <label for="edit-description" class="form-label">Change Description</label>
+        <textarea id="edit-description" name="edit-description" class="form-text" placeholder="{{ listing.description }}"></textarea>
+    </div>
+    
+    <div class="form-field">
+        <label for="edit-price" class="form-label">Change Price</label>
+        <input type="text" id="edit-price" name="edit-price" class="form-text" placeholder="${{ listing.price }}">
+    </div>
+
+    <button type="submit" class="button button-secondary">Save Changes</button>
+</form>
+{% endblock %}
