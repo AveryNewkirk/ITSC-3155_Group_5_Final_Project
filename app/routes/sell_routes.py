@@ -1,6 +1,7 @@
+from collections import UserDict
 from fileinput import filename
 from typing import Iterable
-from flask import Blueprint, current_app, jsonify, render_template, request, redirect, url_for, session
+from flask import Blueprint, abort, current_app, jsonify, render_template, request, redirect, url_for, session
 import os
 from ..models.pipeline import db, Users, Listing, Album, Photo
 from ..utils import upload_file
@@ -19,44 +20,34 @@ sell = Blueprint('sell', __name__)
 
 @sell.route('/sell', methods=["GET", "POST"])
 def create_listing():
+    if not session['username']:
+        return redirect('/login')
+    username = session['username']
     
-    # TODO:
-    # Verify user is logged in and, if so, get user object
-    # if 'userd_id' not in session:
-    #     return(redirect(url_for('login_routes.login')))
+    user = Users.query.filter_by(username=username).first()
     
-    # Create user for testing purposes
-
+    if not isinstance(user, Users):
+        abort(401)
+    user_id = user.user_id
     
     if request.method == 'POST':
-        #-------------------------------------------------------------------------------------
-        username = session.get('username')
-        
-
-        if username not in session.values() or username is None:
-            return(render_template("index.html"))
-
-        user = Users.get_by_username(username)
+        # Extract form fields
         title = request.form['listing-title']
         description = request.form['item-description']
         price = float(request.form['price'])
-        photo_stream = request.files.getlist('upload-pictures')
-
-        album = Album(user.get_id(),f"{username}'s album")
-        db.session.add(album)
-        db.session.commit()
-        album_id = album.album_id
-
-        new_listing = Listing(title=title, description=description, price=price, user_id = user.get_id(), album_id=album_id)
+        album_id = int(request.form['album-id'])
+        listing_photos = request.files.getlist('upload-pictures')
+        
+        # If no Album already exists for the listing, create Album object for images
+        if not album_id or not isinstance(album_id, int):
+            listing_album = Album(user_id)
+            db.session.add(listing_album)
+            db.session.commit()
+            album_id = listing_album.album_id
+        
+        # Create new listing
+        new_listing = Listing(title=title, description=description, price=price, user_id=user_id, album_id=album_id)
         db.session.add(new_listing)
-        db.session.commit()
-
-        for photo in photo_stream:
-            if photo and photo.filename:
-                photo_url = upload_file(photo)
-                if photo_url:
-                    photo = Photo(album_id=album_id, photo_url=photo_url)
-                    db.session.add(photo)
         db.session.commit()
         
         # Get model images and add to database
@@ -64,40 +55,23 @@ def create_listing():
         for i in range(1, 5):
             image_field = f'model-image-url-{i}'
             if image_field in request.form and request.form[image_field]:
-                print('SELL: request.form[image_field]: ')
-                print(request.form[image_field])
                 model_images.append(request.form[image_field])
-        
-        # TODO: remove this
-        for raw_image_url in model_images:
-            print('SELL: raw_image_url: ')
-            print(raw_image_url)
                 
         # Download and save images
         model_image_urls = []
         for url in model_images:
             response = requests.get(url)
-            print('SELL: response: ')
-            print(response)
             if response.status_code == 200:
                 filename = url_to_filename(url)
-                print('SELL: filename: ')
-                print(filename)
                 filepath = os.path.join(current_app.root_path, 'static', 'user_images', filename)
-                print('SELL: filepath: ')
-                print(filepath)
                 with open(filepath, 'wb') as file:
                     file.write(response.content)
                 model_image_urls.append(filename)
-        print('SELL: model_image_urls: ')
-        print(model_image_urls)
                 
         # Create Photo objects and add to db
         for image_url in model_image_urls:
             if image_url:
                 photo = Photo(album_id=album_id, photo_url=image_url)
-                print('SELL: photo: ')
-                print(photo)
                 db.session.add(photo)
         db.session.commit()
         
@@ -108,15 +82,20 @@ def create_listing():
 
 @sell.route('/upload_images', methods=['POST'])
 def upload_images():
+    if not session['username']:
+        return redirect('/login')
+    username = session['username']
+    
+    user = Users.query.filter_by(username=username).first()
+    
+    if not isinstance(user, Users):
+        abort(401)
+    user_id = user.user_id
+        
     photos = request.files.getlist('upload-pictures')
     
-    # Create user for testing purposes
-    user = Users('testuser', 'testemail', 'testpass')
-    db.session.add(user)
-    db.session.commit()
-    
     # Create Album object for images
-    album = Album(user.user_id)
+    album = Album(user_id)
     db.session.add(album)
     db.session.commit()
     
@@ -127,33 +106,32 @@ def upload_images():
             if photo_url:
                 photo = Photo(album_id=album.album_id, photo_url=photo_url)
                 db.session.add(photo)
+    
     db.session.commit()
     
     # Get album_id
     return {'album_id': album.album_id}
 
-@sell.route('/generate_description', methods=['POST'])
+@sell.route('/generate_description',  methods=['POST'])
 def handle_generate_description():
-    print('REACHED: begin handle_generate_description')
+    if not session['username']:
+        return redirect('/login')
     try:
         data = request.get_json()
         album_id = data.get('album_id')
         response = generate_description(album_id)
         description = response.choices[0].message.content if response else ''
-        print('REACHED: handle_generate_description return')
-        print('DESCRIPTION: ')
-        print(description)
         return jsonify(description=description)
     except Exception as e:
-        print(e)
         return jsonify(error=str(e)), 500
     
-@sell.route('/generate_pictures', methods=['POST'])
+@sell.route('/generate_pictures',  methods=['POST'])
 def generate_pictures():
+    if not session['username']:
+        return redirect('/login')
+    
     data = request.get_json()
     description = data.get('description')
-    print('GENERATE_PICTURES: description: ')
-    print(description)
     
     concise_prompt = '''
     You will be provided with the description of a clothing item from an online store. 
@@ -175,20 +153,15 @@ def generate_pictures():
             "content": concise_prompt
         }]
     )
-    print('GENERATE_PICTURES: response_1 completed')
     
     concise_description = response_1.choices[0].message.content
-    print('GENERATE_PICTURES: concise_description: ')
-    print(concise_description)
     
-    # TODO: fix image prompt
     image_prompt = '''
     You will be provided with a detailed summary of the physical attributes of a clothing item.
-    Using these attributes, create a true-to-life photo of an appropriate human model wearing 
-    the clothing item while he or she poses against an off-white backdrop. 
-    Clothing item MUST have ALL ATTRIBUTES as described by the provided physical attributes summary 
-    and be in full view within the length and width of the photo. \n
-    Clothing item physical attributes summary: \n
+    Using these attributes, create a true-to-life photograph of the clothing item on an appropriate human model. 
+    The model is posing in full view against a white backdrop. 
+    Clothing item features ALL attributes from the clothing item physical attributes summary. \n
+    Here is the clothing item physical attributes summary: \n
     '''
     
     if concise_description:
@@ -204,25 +177,23 @@ def generate_pictures():
         style='vivid',
         n=1
     )
-    print('GENERATE_PICTURES: response_2 completed')
     
     image_url = response_2.data[0].url
-    print('GENERATE_PICTURES: image_url: ')
-    print(image_url)
     revised_prompt = response_2.data[0].revised_prompt
-    print('GENERATE_PICTURES: revised_prompt: ')
-    print(revised_prompt)
     return jsonify({'image_url': image_url})
-
-# Alternative /generate_pictures route for testing
-# @sell.route('/generate_pictures', methods=['POST'])
-# def generate_pictures():
-#     image_url = 'https://art.pixilart.com/a4d7353d97dd6d4.png'
-#     return jsonify({'image_url': image_url}) 
 
 @sell.route('/sell_success/<int:listing_id>')
 def sell_success(listing_id):
+    if not session['username']:
+        return redirect('/login')
+    username = session['username']
+    
     listing = Listing.query.get(listing_id)
+    if not isinstance(listing, Listing):
+        abort(401)
+    
+    if not username == listing.user.username:
+        abort(401)
     return render_template('sell_success.html', listing=listing)
 
 # UTILITY FUNCTIONS
@@ -290,7 +261,6 @@ def generate_description(album_id):
                         "url": f"data:{mime_type};base64,{base64_image}"
                     }
                 })
-                print('PATH: ' + image_path)
     
     # Sending request to OpenAI gpt-4-vision
     response = aiClient.chat.completions.create(
@@ -302,7 +272,6 @@ def generate_description(album_id):
         max_tokens = 300
     )
     
-    print('REACHED: generate_description return')
     return response
 
 def url_to_filename(url: str):
